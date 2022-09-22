@@ -15,7 +15,6 @@ class movies extends Controller {
         /** Get HTTP REQUEST as Object */
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
-
     public function movie(){
         /** POST */
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,7 +24,17 @@ class movies extends Controller {
                 Carbon::now());
         }
     }
-    public function hi(){
-        print_r("hi");
+    /** Get all movies, unfiltred */
+    public function list(){
+        /** GET */
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
+            $list = jsonify_reponse($this->movie->getList());
+            foreach($list as $movie) {
+                print_r($movie->ID);
+                print_r($movie->movieTitle);
+                print_r($movie->movieGenre);
+                print_r("\r\n");
+            }
+        }
     }
 }

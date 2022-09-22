@@ -1,7 +1,6 @@
 <?php 
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-
 class Movie extends Eloquent {
     public $movieTitle;
     public $movieId;
@@ -10,6 +9,10 @@ class Movie extends Eloquent {
 
     public $timestamps = [];
     protected $fillable = ['movieTitle','movieGenre', 'movieRelaseDate'];
+
+    public function getList(){
+        return Movie::get();
+    }
 
     public function insertMovie($movieTitle,$movieGenre,$movieRelaseDate) {
         Movie::create([
