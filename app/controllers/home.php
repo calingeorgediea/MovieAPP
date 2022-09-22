@@ -14,18 +14,6 @@ class home extends Controller {
         $this->movie = $this->model('Movie');
     }
 
-    public function addmovie(){
-        $body = file_get_contents('php://input');
-        $body = jsonify_reponse($body);
-        $this->movie->insertMovie("1","2","4");
-        Movie::create([
-            'movieTitle' => "1",
-            'movieId' => "2",
-            'movieGenre' => "3",
-            'movieRelaseDate' => "4",
-        ]);
-    }
-
     public function index($name = '') {
         $this->view('/home/index', ['name' => $user->name]);
     }

@@ -12,16 +12,20 @@ class movies extends Controller {
     protected $user;
     public function __construct(){
         $this->movie = $this->model('Movie');
+        /** Get HTTP REQUEST as Object */
+        $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
 
-    public function addmovie(){
-        $body = file_get_contents('php://input');
-        $body = jsonify_reponse($body);
-        $this->movie->insertMovie("Dark","Comedy",Movie::now());
+    public function movie(){
+        /** POST */
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $this->movie->insertMovie(
+                $this->requestBody->title,
+                $this->requestBody->genre,
+                Carbon::now());
+        }
     }
-
-    public function helloworld(){
-        print_r("Hello world");
+    public function hi(){
+        print_r("hi");
     }
-
 }
