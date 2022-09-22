@@ -7,7 +7,7 @@ function jsonify_reponse( $response ){
     return json_decode($response);
 }
 
-class movie extends Controller {
+class movies extends Controller {
 
     protected $user;
     public function __construct(){
@@ -20,7 +20,8 @@ class movie extends Controller {
         $this->movie->insertMovie("Dark","Comedy",Movie::now());
     }
 
-    public function index($name = '') {
-        $this->view('/home/index', ['name' => $user->name]);
+    public function helloworld(){
+        print_r("Hello world");
     }
+
 }
