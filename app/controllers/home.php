@@ -10,8 +10,7 @@ class home extends Controller {
 
     protected $user;
     public function __construct(){
-        $this->user = $this->model('User');
-        $this->movie = $this->model('Movie');
+        $this->movie = $this->model('movie');
     }
 
     public function index($name = '') {
