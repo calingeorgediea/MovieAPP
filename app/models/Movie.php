@@ -27,7 +27,7 @@ class Movie extends Eloquent {
     protected $primaryKey = 'DirectorID';
 
     public function get() {
-        $movie = Movie::find(25);
+        $movie = Movie::all();
         return $movie;
     }
 }

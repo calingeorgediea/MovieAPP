@@ -26,8 +26,8 @@ class movies extends Controller {
 
     public function list() {
         $list = jsonify_reponse($this->Movie->get());
-        print_r($this->Movie->get(1));
-        // return $this->view('show.movies', $data=$list);
+        // print_r($this->Movie->get(1));
+        return $this->view('show.movies', $data=$list);
     }
 
 

@@ -16,7 +16,7 @@
     ?>
     <tr>
       <td><?php print_r($value->MovieID)?></td>
-      <td><?php print_r($value->DirectorID)?></td>
+      <td></td>
     </tr>
     <?php
     }
