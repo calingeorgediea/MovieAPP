@@ -12,10 +12,11 @@ class movies extends Controller {
     protected $user;
     public function __construct(){
 
-        $this->movie = $this->model('Movie');
-        $this->moviedetails = $this->model('MovieDetails');
+        $this->Movie = $this->model('Movie');
+        $this->moviedetails = $this->model('MovieDetail');
         $this->genres = $this->model('Genres');
         $this->directors = $this->model('Directors');
+        $this->user = $this->model('User');
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
 
@@ -23,47 +24,40 @@ class movies extends Controller {
         print_r($this->movie->find());
     }
 
+    public function list() {
+        $list = jsonify_reponse($this->Movie->get());
+        // print_r($this->Movie->get(1));
+        return $this->view('show.movies', $data=$list);
+    }
+
 
     /** Get all movies, unfiltred */
-    public function list() {
-
+    public function user() {
+        return $this->user->getMyUser();
+    }
+    public function add() {
         /** POST */
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $directorID=$this->directors->insert($this->requestBody->directorname);
-            $genreID = $this->genres->insert($this->requestBody->genre);
-            $detailsID = $this->moviedetails->insert(
-                $this->requestBody->title,
-                $this->requestBody->rating,
-                $this->requestBody->moviedescription
-            );
-            $this->movie->insert(
-                $detailsID,
-                $genreID,
-                $directorID
-            );
+            $name       = isset($_POST['directorname']) ?   $_POST['directorname']  : NULL;
+            if ( $_POST['title'] && $_POST['genre'] && $_POST['rating'] && $_POST['directorname'] && $_POST['moviedescription'] ) {
+                $directorID=$this->directors->insert($_POST['directorname']);
+                $genreID = $this->genres->insert($_POST['genre']);
+                $detailsID = $this->moviedetails->insert(
+                    $_POST['title'],
+                    $_POST['rating'],
+                    $_POST['moviedescription']
+                );
+                $this->Movie->insert(
+                    $detailsID,
+                    $genreID,
+                    $directorID
+                );
+            }
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-
-            // print_r($this->movie->find(72));
-            // print_r($this->movie->getList());
-            $list = jsonify_reponse($this->movie->getList());
-
-
-            foreach($list as $movie) {
-                print_r($movie->MovieID);
-            }
-            //     // print_r($movie->MovieID);
-            //     // print_r("\r\n");
-            //     // print_r(jsonify_reponse($this->moviedetails->getList($movie->MovieID))[0]->MovieTitle);
-            //     // print_r("\r\n");
-            //     // print_r(jsonify_reponse($this->genres->getGenre($movie->GenreID))[0]->GenreName);
-            //     // print_r("\r\n");
-            //     // print_r(jsonify_reponse($this->directors->getDirector($movie->directorID))[0]->DirectorName);
-            //     // print_r("\r\n");
-            //     // print_r("\r\n");
-            // }
+            $list = jsonify_reponse($this->Movie->get());
+            return $this->view('get.movies', '');
+        }
     }
-
-}
 }
