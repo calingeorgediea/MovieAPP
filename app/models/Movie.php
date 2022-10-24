@@ -20,24 +20,27 @@ class Movie extends Eloquent {
         ]);
     }
 
-    public function Directors() {
-        return $this->belongsTo('directors', 'DirectorID');
+
+    protected $primaryKey = 'MovieID';
+
+    public function moviedetails() {
+        return $this->hasOne(moviedetail::class, 'MovieID');
     }
 
-    protected $primaryKey = 'DirectorID';
+    public function directors() {
+        return $this->hasOne(Directors::class, 'DirectorID');
+    }
 
-    public function get() {
-        $movie = Movie::all();
+    // public function test() {
+    //     print_r($this->find(72)->moviedetails->MovieTitle);
+    //     //return $this->movie->moviedetails->all();
+    // }
+
+    public function getMovies() {
+        $movie = $this->with('moviedetails')->get();
         return $movie;
     }
 
-    public function moviedetails():hasOne {
-        return $this->hasOne(MovieDetails::class, 'MovieID');
-    }
-
-    public function find() {
-        print_r(movie::find(72));
-    }
 }
 
 ?>

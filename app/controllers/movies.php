@@ -20,13 +20,9 @@ class movies extends Controller {
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
 
-    public function check(){
-        print_r($this->movie->find());
-    }
 
     public function list() {
-        $list = jsonify_reponse($this->Movie->get());
-        // print_r($this->Movie->get(1));
+        $list = jsonify_reponse($this->Movie->getMovies());
         return $this->view('show.movies', $data=$list);
     }
 
@@ -56,7 +52,7 @@ class movies extends Controller {
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $list = jsonify_reponse($this->Movie->get());
+            $list = jsonify_reponse($this->Movie->getMovie());
             return $this->view('get.movies', '');
         }
     }

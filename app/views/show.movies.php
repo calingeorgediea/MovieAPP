@@ -6,8 +6,11 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Movie Name</th>
-      <th scope="col">Director Name</th>
+      <th scope="col">MovieID
+      </th>
+      <th scope="col">MovieName</th>
+      <th scope="col">Movie Rating</th>
+      <th scope="col">Movie Description</th>
     </tr>
   </thead>
   <tbody>
@@ -16,7 +19,9 @@
     ?>
     <tr>
       <td><?php print_r($value->MovieID)?></td>
-      <td></td>
+      <td><?php print_r($value->moviedetails->MovieTitle)?></td>
+      <td><?php print_r($value->moviedetails->MovieRating)?></td>
+      <td><?php print_r($value->moviedetails->MovieDescription)?></td>
     </tr>
     <?php
     }
