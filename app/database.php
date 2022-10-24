@@ -8,7 +8,7 @@ $capsule->addConnection([
     'host' => '127.0.0.1',
     'username' => 'root',
     'password' => '',
-    'database' => 'movies_app',
+    'database' => 'stack',
     'charset' => 'utf8',
     'collation' => 'utf8_unicode_ci',
     'prefix' => ''

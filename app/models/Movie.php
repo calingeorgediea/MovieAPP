@@ -1,14 +1,16 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-class movie extends Eloquent {
+class Movie extends Eloquent {
 
     public $movieId;
     public $genreID;
     public $DirectorID;
-    protected $primaryKey = 'MovieID';
     public $timestamps = [];
     protected $fillable = ['MovieID', 'GenreID', 'DirectorID'];
+    protected $table = 'movies';
+
+
 
     public function insert($detailsID,$genreID,$directorID) {
         $new = movie::create([
@@ -17,8 +19,16 @@ class movie extends Eloquent {
             'DirectorID' => $directorID,
         ]);
     }
-    public function getList() {
-        return Movie::whereIn('MovieID', array(72))->get();
+
+    public function Directors() {
+        return $this->belongsTo('directors', 'DirectorID');
+    }
+
+    protected $primaryKey = 'DirectorID';
+
+    public function get() {
+        $movie = Movie::find(25);
+        return $movie;
     }
 }
 

@@ -1,7 +1,7 @@
 <?php 
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-class moviedetails extends Eloquent {
+class moviedetail extends Eloquent {
 
     public $movieId;
     public $movieTitle;
@@ -10,12 +10,13 @@ class moviedetails extends Eloquent {
 
     public $timestamps = [];
     protected $fillable = [ 'MovieTitle', 'MovieRating', 'MovieDescription'];
-    public function getList($id) {
-        return moviedetails::whereIn('MovieID', array($id))->get();
+
+    public function get() {
+        return moviedetails::whereIn('MovieID', '77')->get();
     }
 
     public function insert($MovieTitle,$MovieRating,$MovieDescription) {
-        $new = moviedetails::create([
+        $new = moviedetail::create([
             'MovieTitle' => $MovieTitle,
             'MovieRating' => $MovieRating,
             'MovieDescription'=> $MovieDescription,
