@@ -8,12 +8,10 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">MovieID
       </th>
-      <th scope="col">MovieName</th>
-      <th scope="col">Movie Rating</th>
-      <th scope="col">Movie Description</th>
-      <th scope="col">Actions</th>
+      <th scope="col">Director Name</th>
+      <th scope="col">Genres</th>
+      <th scope="col">Movies</th>
     </tr>
   </thead>
   <tbody>
@@ -21,11 +19,7 @@
     foreach ($data as $value) {
     ?>
     <tr>
-      <td><?php print_r($value->MovieID)?></td>
-      <td><?php print_r($value->moviedetails->MovieTitle)?></td>
-      <td><?php print_r($value->moviedetails->MovieRating)?></td>
-      <td><?php print_r($value->moviedetails->MovieDescription)?></td>
-      <td><button onclick="deleteItem(<?php echo $value->MovieID; ?>)" type="submit" value="<?php echo $value->MovieID; ?>" id="delete" class="btn btn-primary">Delete</button></td>
+      <td><?php print_r($value['DirectorName'])?></td>
     </tr>
     <?php
     }

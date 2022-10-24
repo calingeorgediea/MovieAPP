@@ -11,7 +11,6 @@ class movies extends Controller {
 
     protected $user;
     public function __construct(){
-
         $this->Movie = $this->model('Movie');
         $this->moviedetails = $this->model('MovieDetail');
         $this->genres = $this->model('Genres');
@@ -20,17 +19,22 @@ class movies extends Controller {
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
 
+    public function directors() {
+        $list = $this->directors->get();
+        return $this->view('show.directors', $data=$list);
+    }
 
     public function list() {
         $list = jsonify_reponse($this->Movie->getMovies());
         return $this->view('show.movies', $data=$list);
     }
 
-
-    /** Get all movies, unfiltred */
-    public function user() {
-        return $this->user->getMyUser();
+    public function delete() {
+        $this->Movie::destroy($this->requestBody);
+        $this->moviedetails::destroy($this->requestBody);
+        return "200";
     }
+
     public function add() {
         /** POST */
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -52,7 +56,6 @@ class movies extends Controller {
         }
 
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
-            $list = jsonify_reponse($this->Movie->getMovie());
             return $this->view('get.movies', '');
         }
     }

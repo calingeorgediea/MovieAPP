@@ -7,7 +7,7 @@ class moviedetail extends Eloquent {
     public $movieTitle;
     public $movieRating;
     public $movieDescription;
-
+    protected $primaryKey = 'MovieID';
     public $timestamps = [];
     protected $fillable = [ 'MovieTitle', 'MovieRating', 'MovieDescription'];
 

@@ -24,13 +24,17 @@ class Directors extends Eloquent {
         }
     }
 
-    public function get($id) {
-        return Directors::whereIn('DirectorID', array($id))->get();
+    public function Movie() {
+        return $this->hasMany(Directors::class, 'DirectorID');
     }
 
-    public function Movie() {
-        return $this->hasMany('Directors');
+    public function get() {
+        $movie = $this->with('Movie')->get();
+        return $movie;
     }
+
+
+
 
 }
 

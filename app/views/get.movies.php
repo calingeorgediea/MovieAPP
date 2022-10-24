@@ -4,7 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <div class="container">
-  <form action="http://localhost/mvc/public/movies/list" method="POST">
+  <form action="" method="POST">
     <h2>Add Movie</h2>
     <div class="row">
       <div class="col-md-6">
@@ -44,7 +44,21 @@
         </div>
       </div>
     </div>
-    <input type="submit" value="Submit" id="btn" class="btn btn-primary">Submit</input>
+    <input onclick="redirect()" type="submit" value="Submit" id="btn" class="btn btn-primary"></input>
   </form>
 </div>
+
+<script>
+ var xhttp = new XMLHttpRequest();
+  function redirect() {
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      window.location.href = 'http://localhost/mvc/public/movies/list';
+    }
+  };
+  xhttp.open("POST", "demo_post.asp", true);
+  xhttp.send();
+  }
+
+</script>
 </html>

@@ -3,14 +3,13 @@
 use Illuminate\Database\Eloquent\Model as Eloquent;
 class Movie extends Eloquent {
 
+    protected $primaryKey = 'MovieID';
     public $movieId;
     public $genreID;
     public $DirectorID;
     public $timestamps = [];
     protected $fillable = ['MovieID', 'GenreID', 'DirectorID'];
     protected $table = 'movies';
-
-
 
     public function insert($detailsID,$genreID,$directorID) {
         $new = movie::create([
@@ -20,9 +19,6 @@ class Movie extends Eloquent {
         ]);
     }
 
-
-    protected $primaryKey = 'MovieID';
-
     public function moviedetails() {
         return $this->hasOne(moviedetail::class, 'MovieID');
     }
@@ -30,11 +26,6 @@ class Movie extends Eloquent {
     public function directors() {
         return $this->hasOne(Directors::class, 'DirectorID');
     }
-
-    // public function test() {
-    //     print_r($this->find(72)->moviedetails->MovieTitle);
-    //     //return $this->movie->moviedetails->all();
-    // }
 
     public function getMovies() {
         $movie = $this->with('moviedetails')->get();
