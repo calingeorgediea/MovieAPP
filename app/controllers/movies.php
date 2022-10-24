@@ -20,7 +20,7 @@ class movies extends Controller {
     }
 
     public function check(){
-        var_dump($this->requestBody);
+        print_r($this->movie->find());
     }
 
 

@@ -6,7 +6,7 @@ class movie extends Eloquent {
     public $movieId;
     public $genreID;
     public $DirectorID;
-    protected $primaryKey = 'MovieID';
+
     public $timestamps = [];
     protected $fillable = ['MovieID', 'GenreID', 'DirectorID'];
 
@@ -19,6 +19,16 @@ class movie extends Eloquent {
     }
     public function getList() {
         return Movie::whereIn('MovieID', array(72))->get();
+    }
+
+    protected $primaryKey = 'MovieID';
+
+    public function moviedetails():hasOne {
+        return $this->hasOne(MovieDetails::class, 'MovieID');
+    }
+
+    public function find() {
+        print_r(movie::find(72));
     }
 }
 
