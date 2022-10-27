@@ -35,7 +35,6 @@
 </body>
 <script>
 function deleteItem(id) {
-  console.log("Okj");
     //alert (javascriptVariable);
     $.ajax({
         type: "POST",

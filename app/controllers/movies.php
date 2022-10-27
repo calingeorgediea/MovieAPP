@@ -19,6 +19,10 @@ class movies extends Controller {
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
 
+    public function movieview() {
+        return $this->view('/templates/MovieView');
+    }
+
     public function directors() {
         $list = $this->directors->get();
         return $this->view('show.directors', $data=$list);
@@ -30,9 +34,14 @@ class movies extends Controller {
     }
 
     public function delete() {
-        $this->Movie::destroy($this->requestBody);
-        $this->moviedetails::destroy($this->requestBody);
-        return "200";
+
+            $this->Movie::destroy($this->requestBody);
+            $this->moviedetails::destroy($this->requestBody);
+            return "200";
+
+            // response in http
+            return "500";
+
     }
 
     public function add() {
