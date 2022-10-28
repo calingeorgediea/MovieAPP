@@ -9,25 +9,21 @@ class Directors extends Eloquent {
 
     public $timestamps = [];
     protected $fillable = [ 'DirectorID', 'DirectorName'];
-    protected $table = 'Directors';
-    protected $primaryKey = 'DirectorID';
+    protected $table = 'directors';
 
     public function insert($directorName) {
         $existent_director = Directors::where('DirectorName', '=', $directorName)->first();
         if ( $existent_director !== null  ) {
+            $existent_director;
             return Directors::where('DirectorName', '=', $directorName)->pluck('directorID')->toArray()[0];
         } else {
             $new = Directors::create([
                 'DirectorName' => $directorName,
             ]);
-            return($new->id);
+            $new->id;
+            return $new->id;
         }
     }
-
-    public function Movie() {
-        return $this->hasMany(Directors::class, 'DirectorID');
-    }
-
     public function get() {
         $movie = $this->with('Movie')->get();
         return $movie;

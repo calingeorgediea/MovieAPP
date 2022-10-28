@@ -10,6 +10,9 @@
         <a class="nav-link" href="list">Movies <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="add">Add Movie</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="directors">Directors</a>
       </li>
     </ul>

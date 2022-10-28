@@ -13,14 +13,16 @@
         <div class="col-sm">
         <img src="https://m.media-amazon.com/images/M/MV5BMmNlYzRiNDctZWNhMi00MzI4LThkZTctMTUzMmZkMmFmNThmXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" alt="Simply Easy Learning" width="300">
         </div>
+        <?php var_dump($data); ?>
         <div class="col-sm">
             <div id="movie-title">
-                <h1> 2001: A Space Odyssey </h1>
+                <h1> <?php echo $data->moviedetails->MovieTitle ?> </h1>
             </div>
             <div id="director-name">
                 <h2> Stanley Kubrick </h2>
             </div>
             <div class="rate">
+                <?php echo $data->moviedetails->MovieRating ?>
                 <input type="radio" id="star5" name="rate" value="5" />
                 <label for="star5" title="text">5 stars</label>
                 <input type="radio" id="star4" name="rate" value="4" />
@@ -32,13 +34,12 @@
                 <input type="radio" id="star1" name="rate" value="1" />
                 <label for="star1" title="text">1 star</label>
              </div>
-            <div class="container">
-  <span id="rateMe1"></span>
-</div>
-
-<!-- rating.js file -->
-
+        </div>
+        <div class="col-sm">
+            <div id="movie-description">
+                <p> <?php echo $data->moviedetails->MovieDescription ?> </p>
             </div>
+        </div>
         </div>
   </div>
 </div>

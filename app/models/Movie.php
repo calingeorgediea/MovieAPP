@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model as Eloquent;
 class Movie extends Eloquent {
 
     protected $primaryKey = 'MovieID';
-    public $movieId;
+    public $movieID;
     public $genreID;
     public $DirectorID;
     public $timestamps = [];
@@ -19,16 +19,21 @@ class Movie extends Eloquent {
         ]);
     }
 
+    public function get($movieID) {
+        $movie = $this->find($movieID)->with(['moviedetails','directors'])->get();
+        return $movie;
+    }
+
     public function moviedetails() {
-        return $this->hasOne(moviedetail::class, 'MovieID');
+        return $this->hasOne(moviedetail::class, 'MovieID', 'MovieID');
     }
 
     public function directors() {
-        return $this->hasOne(Directors::class, 'DirectorID');
+        return $this->hasOne(Directors::class, 'DirectorID','DirectorID');
     }
 
     public function getMovies() {
-        $movie = $this->with('moviedetails')->get();
+        $movie = $this->with(['moviedetails'])->get();
         return $movie;
     }
 

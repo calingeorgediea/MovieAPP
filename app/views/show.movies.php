@@ -25,6 +25,7 @@
       <td><?php print_r($value->moviedetails->MovieTitle)?></td>
       <td><?php print_r($value->moviedetails->MovieRating)?></td>
       <td><?php print_r($value->moviedetails->MovieDescription)?></td>
+      <td><button onclick="window.location.href='movieview?id=<?php echo $value->MovieID ?>'"> Show </button></td>
       <td><button onclick="deleteItem(<?php echo $value->MovieID; ?>)" type="submit" value="<?php echo $value->MovieID; ?>" id="delete" class="btn btn-primary">Delete</button></td>
     </tr>
     <?php
