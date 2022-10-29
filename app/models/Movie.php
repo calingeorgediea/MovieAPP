@@ -20,10 +20,10 @@ class Movie extends Eloquent {
     }
 
     public function get($movieID) {
-        $movie = $this->find($movieID)->with(['moviedetails','directors'])->get();
+        $movie = $this->find($movieID)->with(['directors','moviedetails'])->get();
         return $movie;
     }
-
+    // $this->hasOne('Model', 'foreign_key', 'local_key');
     public function moviedetails() {
         return $this->hasOne(moviedetail::class, 'MovieID', 'MovieID');
     }

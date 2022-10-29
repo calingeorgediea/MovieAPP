@@ -35,7 +35,6 @@ class movies extends Controller {
             $this->moviedetails::destroy($this->requestBody);
             return "200";
             // response in http
-            return "500";
     }
 
     public function add() {
