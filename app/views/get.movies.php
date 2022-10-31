@@ -37,7 +37,6 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-
         <div class="form-group">
           <label for="moviedescription">Movie Description</label>
           <input value="moviedescription" name="moviedescription" type="text" class="form-control" id="email" placeholder="">
