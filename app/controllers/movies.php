@@ -48,6 +48,7 @@ class movies extends Controller {
                     $_POST['title'],
                     $_POST['rating'],
                     $_POST['moviedescription'],
+                    $_POST['moviedescription'],
                 );
                 $this->Movie->insert(
                     $detailsID,

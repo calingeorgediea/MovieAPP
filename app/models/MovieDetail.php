@@ -10,7 +10,7 @@ class moviedetail extends Eloquent {
     public $timestamps = [];
     protected $fillable = [ 'MovieTitle', 'MovieRating', 'MovieDescription'];
 
-    public function insert($MovieTitle,$MovieRating,$MovieDescription) {
+    public function insert($MovieTitle,$MovieRating,$MovieDescription,$URLImage) {
         $new = moviedetail::create([
             'MovieTitle' => $MovieTitle,
             'MovieRating' => $MovieRating,

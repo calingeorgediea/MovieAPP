@@ -43,6 +43,7 @@
         </div>
       </div>
     </div>
+    <input type="file" name="image" multiple="multiple" ></input>
     <input onclick="redirect()" type="submit" value="Submit" id="btn" class="btn btn-primary"></input>
   </form>
 </div>
