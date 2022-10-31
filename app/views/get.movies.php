@@ -50,15 +50,15 @@
 
 <script>
  var xhttp = new XMLHttpRequest();
-  function redirect() {
-  xhttp.onreadystatechange = function() {
-    if (this.readyState == 4 && this.status == 200) {
-      window.location.href = 'http://localhost/mvc/public/movies/list';
-    }
-  };
-  xhttp.open("POST", "demo_post.asp", true);
-  xhttp.send();
-  }
+  // function redirect() {
+  // xhttp.onreadystatechange = function() {
+  //   if (this.readyState == 4 && this.status == 200) {
+  //     window.location.href = 'http://localhost/mvc/public/movies/list';
+  //   }
+  // };
+  // xhttp.open("POST", "demo_post.asp", true);
+  // xhttp.send();
+  // }
 
 </script>
 </html>
