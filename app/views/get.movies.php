@@ -4,7 +4,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <div class="container">
-  <form action="" method="POST">
+  <form action="" method="POST" enctype="multipart/form-data">
     <h2>Add Movie</h2>
     <div class="row">
       <div class="col-md-6">
@@ -43,22 +43,22 @@
         </div>
       </div>
     </div>
-    <input type="file" name="image" multiple="multiple" ></input>
-    <input onclick="redirect()" type="submit" value="Submit" id="btn" class="btn btn-primary"></input>
+    <input type="file" name="fileToUpload" id="fileToUpload">
+    <input onclick="redirect()" type="submit" value="Submit" id="btn" class="btn btn-primary">
   </form>
 </div>
 
 <script>
  var xhttp = new XMLHttpRequest();
-  // function redirect() {
-  // xhttp.onreadystatechange = function() {
-  //   if (this.readyState == 4 && this.status == 200) {
-  //     window.location.href = 'http://localhost/mvc/public/movies/list';
-  //   }
-  // };
-  // xhttp.open("POST", "demo_post.asp", true);
-  // xhttp.send();
-  // }
+  function redirect() {
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      window.location.href = 'http://localhost/mvc/public/movies/list';
+    }
+  };
+  xhttp.open("POST", "demo_post.asp", true);
+  xhttp.send();
+  }
 
 </script>
 </html>
