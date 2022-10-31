@@ -1,6 +1,6 @@
 <html>
 <head>
-``````````````````````````````````````````````<link rel="stylesheet" href="../content/css/rating.css">``````````````````````````````````````````````
+<link rel="stylesheet" href="../content/css/rating.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -11,7 +11,7 @@
         <div class="container">
         <div class="row">
         <div class="col-sm">
-        <img src="https://m.media-amazon.com/images/M/MV5BMmNlYzRiNDctZWNhMi00MzI4LThkZTctMTUzMmZkMmFmNThmXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg" alt="Simply Easy Learning" width="300">
+        <img src="../uploads/<?php echo $data->Image; ?>" alt="Simply Easy Learning" width="600" height="600">
         </div>
         <div class="col-sm">
             <div id="movie-title">
