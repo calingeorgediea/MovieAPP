@@ -23,6 +23,12 @@ class genres extends Eloquent {
     public function getGenre($id) {
         return genres::whereIn('GenreID', array($id))->get();
     }
+
+    public function get() {
+        $director = $this->with('Movie')->get();
+        return $director;
+    }
+
 }
 
 ?>

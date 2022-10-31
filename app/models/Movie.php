@@ -19,18 +19,20 @@ class Movie extends Eloquent {
         ]);
     }
 
-    public function get($movieID) {
-        $movie = $this->find($movieID)->with(['directors','moviedetails'])->get();
-        return $movie;
-    }
-    // $this->hasOne('Model', 'foreign_key', 'local_key');
     public function moviedetails() {
         return $this->hasOne(moviedetail::class, 'MovieID', 'MovieID');
     }
 
-    public function directors() {
-        return $this->hasOne(Directors::class, 'DirectorID','DirectorID');
+    public function get($movieID) {
+        $result = $this->join('directors', 'directors.DirectorID', '=', 'movies.DirectorID')
+                          ->join('moviedetails', 'moviedetails.MovieID', '=', 'movies.MovieID')
+                          ->where('movies.MovieID', '=', $movieID)
+                          ->get();
+
+        return $result;
     }
+    // $this->hasOne('Model', 'foreign_key', 'local_key');
+
 
     public function getMovies() {
         $movie = $this->with(['moviedetails'])->get();

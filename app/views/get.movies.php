@@ -37,13 +37,13 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-
         <div class="form-group">
           <label for="moviedescription">Movie Description</label>
           <input value="moviedescription" name="moviedescription" type="text" class="form-control" id="email" placeholder="">
         </div>
       </div>
     </div>
+    <input type="file" name="image" multiple="multiple" ></input>
     <input onclick="redirect()" type="submit" value="Submit" id="btn" class="btn btn-primary"></input>
   </form>
 </div>

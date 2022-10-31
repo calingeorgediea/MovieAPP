@@ -3,7 +3,7 @@
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
 class Directors extends Eloquent {
-
+    public $movieID;
     public $DirectorID;
     public $DirectorName;
 
@@ -28,9 +28,6 @@ class Directors extends Eloquent {
         $movie = $this->with('Movie')->get();
         return $movie;
     }
-
-
-
 
 }
 
