@@ -21,7 +21,7 @@ class movies extends Controller {
 
     public function movieview() {
         $movieID = $_GET['id'];
-        $movieData = jsonify_reponse($this->Movie->get($movieID))[1];
+        $movieData = jsonify_reponse($this->Movie->get($movieID))[0];
         return $this->view('/templates/MovieView', $data = $movieData);
     }
 
@@ -93,7 +93,7 @@ class movies extends Controller {
                     $_POST['title'],
                     $_POST['rating'],
                     $_POST['moviedescription'],
-                    $target_file
+                    $_FILES["fileToUpload"]["name"]
                 );
 
                 $this->Movie->insert(
