@@ -15,6 +15,7 @@ class movies extends Controller {
         $this->moviedetails = $this->model('moviedetail');
         $this->genres = $this->model('genres');
         $this->directors = $this->model('Directors');
+        $this->directordetails = $this->model('DirectorDetail');
         $this->user = $this->model('User');
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
@@ -26,6 +27,27 @@ class movies extends Controller {
     }
 
     public function directors() {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $this->directordetails->insert(
+                $_GET['id'],
+                $_POST['color'],
+                $_POST['birthday'],
+                $_POST['biography'],
+                $_POST['deathday'],
+                ''
+            );
+
+            if(isset($_GET['id'])) {
+                $directorID = $_GET['id'];
+                $directorData = jsonify_reponse($this->directors->get($directorID));
+                return $this->view('/templates/DirectorView', $data = $directorData);
+            } else {
+                $movieData = jsonify_reponse($this->directors->get(null));
+                return $this->view('show.directors', $data = $movieData);
+            }
+        }
+
+        if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if(isset($_GET['id'])) {
             $directorID = $_GET['id'];
             $directorData = jsonify_reponse($this->directors->get($directorID));
@@ -34,7 +56,7 @@ class movies extends Controller {
             $movieData = jsonify_reponse($this->directors->get(null));
             return $this->view('show.directors', $data = $movieData);
         }
-
+    }
     }
 
     public function list() {
@@ -52,7 +74,7 @@ class movies extends Controller {
     public function add() {
         /** POST */
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $name       = isset($_POST['directorname']) ?   $_POST['directorname']  : NULL;
+            $name = isset($_POST['directorname']) ?   $_POST['directorname']  : NULL;
             if ( $_POST['title'] && $_POST['genre'] && $_POST['rating'] && $_POST['directorname'] && $_POST['moviedescription'] ) {
                 $directorID = $this->directors->insert($_POST['directorname']);
                 $genreID = $this->genres->insert($_POST['genre']);
