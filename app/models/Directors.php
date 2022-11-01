@@ -24,9 +24,14 @@ class Directors extends Eloquent {
             return $new->id;
         }
     }
-    public function get() {
-        $movie = $this->with('Movie')->get();
-        return $movie;
+
+    public function get($directorID) {
+        if(!isset($directorID)) {
+            return $this->all();
+        } else {
+        $result = Directors::where('DirectorID', '=', $directorID)->first();
+        return $result;
+        }
     }
 
 }

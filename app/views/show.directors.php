@@ -8,10 +8,9 @@
 <table class="table">
   <thead>
     <tr>
+      <th scope="col">Directors
       </th>
-      <th scope="col">Director Name</th>
-      <th scope="col">Genres</th>
-      <th scope="col">Movies</th>
+      <th scope="col">Actions</th>
     </tr>
   </thead>
   <tbody>
@@ -19,7 +18,8 @@
     foreach ($data as $value) {
     ?>
     <tr>
-      <td><?php print_r($value['DirectorName'])?></td>
+      <td><?php print_r($value->DirectorName)?></td>
+      <td><button class="btn btn-primary" onclick="window.location.href='directors?id=<?php echo $value->DirectorID ?>'"> Show Director Page </button></td>
     </tr>
     <?php
     }
@@ -29,14 +29,15 @@
 </body>
 <script>
 function deleteItem(id) {
-  console.log("Okj");
     //alert (javascriptVariable);
+    $('#movie-'+id).remove();
     $.ajax({
         type: "POST",
         url: "http://localhost/mvc/public/movies/delete",
         dataType: 'text',
         data: id.toString(),
-        success: function (data) {}
+        success: function (data) {
+        }
     });
 }
 </script>

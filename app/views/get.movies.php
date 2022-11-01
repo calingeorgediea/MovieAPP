@@ -1,4 +1,5 @@
 <html>
+<?php include('templates/navbar.php'); ?>
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -10,13 +11,13 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="title">Movie Title</label>
-          <input value="title" name="title" type="text" class="form-control" placeholder="" id="first">
+          <input value="2001: A Space Odyssey" name="title" type="text" class="form-control" placeholder="" id="first">
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-group">
           <label for="genre">Movie Genre</label>
-          <input value="genre" name="genre" type="text" class="form-control" placeholder="" id="last">
+          <input value="Sci-Fi" name="genre" type="text" class="form-control" placeholder="" id="last">
         </div>
       </div>
     </div>
@@ -24,14 +25,14 @@
       <div class="col-md-6">
         <div class="form-group">
           <label for="rating">Rating</label>
-          <input value="rating" name="rating" type="text" class="form-control" placeholder="" id="company">
+          <input value="9" name="rating" type="text" class="form-control" placeholder="" id="company">
         </div>
       </div>
       <div class="col-md-6">
 
         <div class="form-group">
           <label for="directorname">Director Name</label>
-          <input value="directorname" name="directorname" type="text" class="form-control" id="directorname" placeholder="">
+          <input value="Stanley Kubrick" name="directorname" type="text" class="form-control" id="directorname" placeholder="">
         </div>
       </div>
     </div>
@@ -39,7 +40,7 @@
       <div class="col-md-12">
         <div class="form-group">
           <label for="moviedescription">Movie Description</label>
-          <input value="moviedescription" name="moviedescription" type="text" class="form-control" id="email" placeholder="">
+          <input value="After uncovering a mysterious artifact buried beneath the Lunar surface, a spacecraft is sent to Jupiter to find its origins - a spacecraft manned by two men and the supercomputer H.A.L. 9000" name="moviedescription" type="text" class="form-control" id="email" placeholder="">
         </div>
       </div>
     </div>

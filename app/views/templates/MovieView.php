@@ -1,5 +1,6 @@
 <html>
 <head>
+<?php include('navbar.php'); ?>
 <link rel="stylesheet" href="../content/css/rating.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -11,13 +12,14 @@
         <div class="container">
         <div class="row">
         <div class="col-sm">
-        <img src="../uploads/<?php echo $data->Image; ?>" alt="Simply Easy Learning" width="600" height="600">
+        <img src="../uploads/<?php echo $data->Image; ?>" class="movie-poster" alt="Simply Easy Learning"">
         </div>
         <div class="col-sm">
             <div id="movie-title">
                 <h1> <?php echo $data->MovieTitle ?> </h1>
             </div>
             <div id="director-name">
+                <p>Director Name</p>
                 <h2> <?php echo $data->DirectorName ?> </h2>
             </div>
             <div class="rate">

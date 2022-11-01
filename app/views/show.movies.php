@@ -20,13 +20,13 @@
   <?php
     foreach ($data as $value) {
     ?>
-    <tr>
+    <tr id="movie-<?php echo $value->MovieID; ?>">
       <td><?php print_r($value->MovieID)?></td>
       <td><?php print_r($value->moviedetails->MovieTitle)?></td>
       <td><?php print_r($value->moviedetails->MovieRating)?></td>
       <td><?php print_r($value->moviedetails->MovieDescription)?></td>
-      <td><button onclick="window.location.href='movieview?id=<?php echo $value->MovieID ?>'"> Show </button></td>
-      <td><button onclick="deleteItem(<?php echo $value->MovieID; ?>)" type="submit" value="<?php echo $value->MovieID; ?>" id="delete" class="btn btn-primary">Delete</button></td>
+      <td><button class="btn btn-primary" onclick="window.location.href='movieview?id=<?php echo $value->MovieID ?>'"> Show </button></td>
+      <td><button onclick="deleteItem(<?php echo $value->MovieID; ?>)" type="submit" value="<?php echo $value->MovieID; ?>" id="delete" class="btn btn-danger">Delete</button></td>
     </tr>
     <?php
     }
@@ -37,12 +37,14 @@
 <script>
 function deleteItem(id) {
     //alert (javascriptVariable);
+    $('#movie-'+id).remove();
     $.ajax({
         type: "POST",
         url: "http://localhost/mvc/public/movies/delete",
         dataType: 'text',
         data: id.toString(),
-        success: function (data) {}
+        success: function (data) {
+        }
     });
 }
 </script>

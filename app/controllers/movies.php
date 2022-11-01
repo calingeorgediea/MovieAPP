@@ -25,6 +25,18 @@ class movies extends Controller {
         return $this->view('/templates/MovieView', $data = $movieData);
     }
 
+    public function directors() {
+        if(isset($_GET['id'])) {
+            $directorID = $_GET['id'];
+            $directorData = jsonify_reponse($this->directors->get($directorID));
+            return $this->view('/templates/DirectorView', $data = $directorData);
+        } else {
+            $movieData = jsonify_reponse($this->directors->get(null));
+            return $this->view('show.directors', $data = $movieData);
+        }
+
+    }
+
     public function list() {
         $list = jsonify_reponse($this->Movie->getMovies());
         return $this->view('show.movies', $data=$list);
