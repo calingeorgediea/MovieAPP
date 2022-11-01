@@ -11,7 +11,8 @@
 <body>
 
 <div class="main">
-    <div class="section-1">
+    <?php var_dump($data) ?>
+    <div class="section-1" style="background-color:<?php echo $data->color; ?>">
         <div class="container">
         <div class="row">
         <div class="col-sm">
@@ -22,12 +23,6 @@
             <?php include('modals/director.php'); ?>
                 <h1> <?php echo $data->DirectorName ?> </h1>
             </div>
-            <div id="director-name">
-                <p>Director Name</p>
-                <h2> <?php echo $data->DirectorName ?> </h2>
-            </div>
-             <div class="col-8">
-        </div>
         </div>
         </div>
   </div>

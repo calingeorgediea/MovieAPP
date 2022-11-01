@@ -25,6 +25,18 @@ class Directors extends Eloquent {
         }
     }
 
+    public function insert_details($directorID, $birthday, $deathday, $biography, $color, $image) {
+        Directors::where('DirectorID', $directorID)->update(
+            array(
+                'birthday' => $birthday,
+                'deathday' => $deathday,
+                'biography' => $biography,
+                'color' => $color,
+                'image' => 'asdasd',
+                )
+        );
+    }
+
     public function get($directorID) {
         if(!isset($directorID)) {
             return $this->all();

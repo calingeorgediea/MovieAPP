@@ -17,19 +17,19 @@
       <form action="" method="POST" enctype="multipart/form-data">
         <div class="form-group">
             <label>Associate a color with this director</label>
-            <input value="red" name="color" type="text" class="form-control" placeholder="" id="color">
+            <input value="<?php echo $data->color; ?>" name="color" type="text" class="form-control" placeholder="" id="color">
         </div>
         <div class="form-group">
             <label for="birthday">Birthday</label>
-            <input name="birthday" type="date" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input value="<?php echo $data->birthday; ?>" name="birthday" type="date" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <div class="form-group">
             <label for="deathday">Deathday</label>
-            <input name="deathday" type="date" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <input value="<?php echo $data->deathday; ?>" name="deathday" type="date" class="form-control" id="exampleInputPassword1" placeholder="Password">
         </div>
         <div class="form-group">
             <label for="biography">Short biography</label>
-            <input name="biography" type="text" class="form-control" id="exampleInputPassword1" placeholder="Biography">
+            <input value="<?php echo $data->biography; ?>" name="biography" type="text" class="form-control" id="exampleInputPassword1" placeholder="Biography">
         </div>
         <input type="file" name="fileToUpload" id="fileToUpload">
         <input onclick="" type="submit" value="Submit" id="btn" class="btn btn-primary">

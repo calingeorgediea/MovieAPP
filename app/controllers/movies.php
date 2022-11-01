@@ -28,12 +28,12 @@ class movies extends Controller {
 
     public function directors() {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $this->directordetails->insert(
+            $this->directors->insert_details(
                 $_GET['id'],
-                $_POST['color'],
                 $_POST['birthday'],
-                $_POST['biography'],
                 $_POST['deathday'],
+                $_POST['biography'],
+                $_POST['color'],
                 ''
             );
 
@@ -76,7 +76,9 @@ class movies extends Controller {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $name = isset($_POST['directorname']) ?   $_POST['directorname']  : NULL;
             if ( $_POST['title'] && $_POST['genre'] && $_POST['rating'] && $_POST['directorname'] && $_POST['moviedescription'] ) {
+
                 $directorID = $this->directors->insert($_POST['directorname']);
+
                 $genreID = $this->genres->insert($_POST['genre']);
                 if($_FILES["fileToUpload"]["name"]) {
                     $fullPath = dir(getcwd())->path;
@@ -135,7 +137,6 @@ class movies extends Controller {
                     $genreID,
                     $directorID
                 );
-
                 return $detailsID;
             }
         }
