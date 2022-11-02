@@ -10,6 +10,7 @@ function jsonify_reponse( $response ){
 class movies extends Controller {
 
     protected $user;
+
     public function __construct(){
         $this->Movie = $this->model('Movie');
         $this->moviedetails = $this->model('moviedetail');
