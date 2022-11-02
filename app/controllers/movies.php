@@ -20,6 +20,15 @@ class movies extends Controller {
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
 
+    function update_rating() {
+        $movieID =  $_GET["movieid"];
+        $newRating = $this->requestBody;
+        // PATCH is used to update an existing entity with new information.
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
+            $this->moviedetails::where('MovieID', '=', $movieID)->update(['MovieRating' => $newRating]);
+        }
+    }
+
     public function movieview() {
         $movieID = $_GET['id'];
         $movieData = jsonify_reponse($this->Movie->get($movieID))[0];
