@@ -11,7 +11,7 @@
 <body>
 
 <div class="main">
-    <?php var_dump($data) ?>
+    <!-- <?php var_dump($data) ?> -->
     <div class="section-1" style="background-color:<?php echo $data->color; ?>">
         <div class="container">
         <div class="row">
@@ -29,6 +29,27 @@
 </div>
     </div>
 </div>
+</div>
+<?php
+$numOfCols = 3;
+$rowCount = 3;
+$bootstrapColWidth = 12 / $numOfCols;
+foreach ($data->AllMovies as $row){
+  if($rowCount % $numOfCols == 0) { ?> <div class="row"> <?php }
+    $rowCount++; ?>
+        <div class="col-md-<?php echo $bootstrapColWidth; ?>">
+
+            <div class="thumbnail">
+            <a href="movieview?id=<?php echo $row->MovieID; ?>" >
+                <img src="../uploads/<?php echo $row->Image; ?>" width="300">
+                </a>
+                <h3> <?php echo $row->MovieTitle; ?></h3>
+                <p> <?php echo $row->MovieDescription; ?></p>
+            </div>
+
+        </div>
+<?php
+    if($rowCount % $numOfCols == 0) { ?> </div> <?php } } ?>
 </body>
 
 </html>

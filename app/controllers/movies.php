@@ -36,7 +36,6 @@ class movies extends Controller {
                 $_POST['color'],
                 ''
             );
-
             if(isset($_GET['id'])) {
                 $directorID = $_GET['id'];
                 $directorData = jsonify_reponse($this->directors->get($directorID));
@@ -46,11 +45,10 @@ class movies extends Controller {
                 return $this->view('show.directors', $data = $movieData);
             }
         }
-
         if ($_SERVER["REQUEST_METHOD"] == "GET") {
         if(isset($_GET['id'])) {
             $directorID = $_GET['id'];
-            $directorData = jsonify_reponse($this->directors->get($directorID));
+            $directorData = jsonify_reponse($this->directors->getAll($directorID));
             return $this->view('/templates/DirectorView', $data = $directorData);
         } else {
             $movieData = jsonify_reponse($this->directors->get(null));
