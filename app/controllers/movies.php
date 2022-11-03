@@ -18,17 +18,35 @@ class movies extends Controller {
         $this->directors = $this->model('Directors');
         $this->directordetails = $this->model('DirectorDetail');
         $this->user = $this->model('User');
+        $this->API = $this->model('api');
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
-        $this->API_movie = $this->model('API');
+
 
 //             $movie_details = new API_movie("ONE FLEW OVER A");
 // $movie_details=$movie_details->response();
 // // print_r($movie_details->image_url);
 // // print_r($movie_details->rating);
 // print_r($movie_details->image_url);
-
     }
 
+    function update_on_api() {
+        $title =  $_GET["title"];
+        // PATCH is used to update an existing entity with new information.
+        if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
+            $movie_details = new API_movie($title);
+            $movie_details=$movie_details->response();
+
+            $this->moviedetails::where('MovieID', '=', $this->requestBody)->update(
+                [
+                    'API_movie_rating' => $movie_details->rating,
+                    'API_movie_image' => $movie_details->image_url,
+                    'MovieDescription' => $movie_details->plot,
+                    'MovieTitle' => $movie_details->title,
+                    'relase_date' => $movie_details->relase_date
+                ]
+            );
+        }
+    }
     function update_rating() {
         $movieID =  $_GET["movieid"];
         $newRating = $this->requestBody;

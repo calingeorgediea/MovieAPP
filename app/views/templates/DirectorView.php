@@ -41,7 +41,11 @@ foreach ($data->AllMovies as $row){
 
             <div class="thumbnail">
             <a href="movieview?id=<?php echo $row->MovieID; ?>" >
+            <?php if($row->Image) { ?>
                 <img src="../uploads/<?php echo $row->Image; ?>" width="300">
+                <?php } else { ?>
+                <img src="<?php echo $row->API_movie_image; ?>" width="300">
+                <?php } ?>
                 </a>
                 <h3> <?php echo $row->MovieTitle; ?></h3>
                 <p> <?php echo $row->MovieDescription; ?></p>

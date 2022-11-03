@@ -3,6 +3,9 @@
     height: 800px;
 }
 
+.hidden{
+  display: none;
+}
 h2 {
     color: red;
 }
