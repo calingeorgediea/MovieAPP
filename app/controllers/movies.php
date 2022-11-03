@@ -19,6 +19,14 @@ class movies extends Controller {
         $this->directordetails = $this->model('DirectorDetail');
         $this->user = $this->model('User');
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
+        $this->API_movie = $this->model('API');
+
+//             $movie_details = new API_movie("ONE FLEW OVER A");
+// $movie_details=$movie_details->response();
+// // print_r($movie_details->image_url);
+// // print_r($movie_details->rating);
+// print_r($movie_details->image_url);
+
     }
 
     function update_rating() {
