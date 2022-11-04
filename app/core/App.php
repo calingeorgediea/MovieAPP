@@ -9,6 +9,8 @@ class App {
     public function __construct(){
 
        $url = $this->parseUrl();
+       // Append Controller naming convention
+       $url[0] = preg_replace('~(\w+)~', '$1Controller',$url[0]);
 
         if(file_exists('../app/controllers/' . $url[0] .'.php')) {
             $this->controller = $url[0];

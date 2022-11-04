@@ -6,7 +6,7 @@ function jsonify_reponse( $response ){
     return json_decode($response);
 }
 
-class home extends Controller {
+class HomeController extends Controller {
 
     protected $user;
     public function __construct(){

@@ -35,7 +35,7 @@
                 <h1> <?php echo $data->MovieTitle ?> </h1>
             </div>
             <div id="director-name">
-                <a href="directors?id=<?php echo $data->DirectorID; ?>">
+                <a href="<?php echo PUBLIC_PATH ?>director/find?id=<?php echo $data->DirectorID; ?>">
                 <h2> <?php echo $data->DirectorName ?> </h2>
                 </a>
             </div>

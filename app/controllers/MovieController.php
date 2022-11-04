@@ -7,7 +7,7 @@ function jsonify_reponse( $response ){
     return json_decode($response);
 }
 
-class movies extends Controller {
+class MovieController extends Controller {
 
     protected $user;
 

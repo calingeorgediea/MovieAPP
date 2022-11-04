@@ -2,7 +2,7 @@
 <head>
 <?php include('navbar.php'); ?>
 <link rel="stylesheet" href="../content/css/rating.css">
-
+<?php define('PUBLIC_PATH', 'http://localhost/mvc/public/'); ?>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -40,7 +40,7 @@ foreach ($data->AllMovies as $row){
         <div class="col-md-<?php echo $bootstrapColWidth; ?>">
 
             <div class="thumbnail">
-            <a href="movieview?id=<?php echo $row->MovieID; ?>" >
+            <a href="<?php echo PUBLIC_PATH ?>movie/movieview?id=<?php echo $row->MovieID; ?>" >
             <?php if($row->Image) { ?>
                 <img src="../uploads/<?php echo $row->Image; ?>" width="300">
                 <?php } else { ?>
