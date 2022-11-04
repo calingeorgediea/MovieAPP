@@ -20,13 +20,17 @@ class MovieController extends Controller {
         $this->user = $this->model('User');
         $this->API = $this->model('api');
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
+    }
 
-
-//             $movie_details = new API_movie("ONE FLEW OVER A");
-// $movie_details=$movie_details->response();
-// // print_r($movie_details->image_url);
-// // print_r($movie_details->rating);
-// print_r($movie_details->image_url);
+    public function index(){
+        if(isset($_GET['id'])) {
+            $movieID = $_GET['id'];
+            $movieData = jsonify_reponse($this->Movie->get($movieID))[0];
+            return $this->view('/templates/MovieView', $data = $movieData);
+        } else {
+        $list = jsonify_reponse($this->Movie->getMovies());
+        return $this->view('show.movies', $data=$list);
+        }
     }
 
     function update_on_api() {
@@ -38,13 +42,21 @@ class MovieController extends Controller {
 
             $this->moviedetails::where('MovieID', '=', $this->requestBody)->update(
                 [
-                    'API_movie_rating' => $movie_details->rating,
-                    'API_movie_image' => $movie_details->image_url,
-                    'MovieDescription' => $movie_details->plot,
                     'MovieTitle' => $movie_details->title,
-                    'relase_date' => $movie_details->relase_date
+                    'API_movie_rating' => $movie_details->rating,
+                    'API_movie_image' => $movie_details->API_movie_image,
+                    'MovieDescription' => $movie_details->plot,
+                    'relase_date' => $movie_details->relase_date,
+                    'api_fetched' => 1,
+                    // "api_overview_fullresponse" => $movie_details->full_overview,
+                    // "api_cast_fullresponse" => $movie_details->full_cast,
                 ]
             );
+            $directorID = $this->directors->insert($movie_details->director);
+            $directorID;
+            $this->Movie::where('MovieID', '=', $this->requestBody)->update([
+                'DirectorID' => $directorID
+            ]);
         }
     }
     function update_rating() {
@@ -54,48 +66,6 @@ class MovieController extends Controller {
         if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $this->moviedetails::where('MovieID', '=', $movieID)->update(['MovieRating' => $newRating]);
         }
-    }
-
-    public function movieview() {
-        $movieID = $_GET['id'];
-        $movieData = jsonify_reponse($this->Movie->get($movieID))[0];
-        return $this->view('/templates/MovieView', $data = $movieData);
-    }
-
-    public function directors() {
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $this->directors->insert_details(
-                $_GET['id'],
-                $_POST['birthday'],
-                $_POST['deathday'],
-                $_POST['biography'],
-                $_POST['color'],
-                ''
-            );
-            if(isset($_GET['id'])) {
-                $directorID = $_GET['id'];
-                $directorData = jsonify_reponse($this->directors->get($directorID));
-                return $this->view('/templates/DirectorView', $data = $directorData);
-            } else {
-                $movieData = jsonify_reponse($this->directors->get(null));
-                return $this->view('show.directors', $data = $movieData);
-            }
-        }
-        if ($_SERVER["REQUEST_METHOD"] == "GET") {
-        if(isset($_GET['id'])) {
-            $directorID = $_GET['id'];
-            $directorData = jsonify_reponse($this->directors->getAll($directorID));
-            return $this->view('/templates/DirectorView', $data = $directorData);
-        } else {
-            $movieData = jsonify_reponse($this->directors->get(null));
-            return $this->view('show.directors', $data = $movieData);
-        }
-    }
-    }
-
-    public function list() {
-        $list = jsonify_reponse($this->Movie->getMovies());
-        return $this->view('show.movies', $data=$list);
     }
 
     public function delete() {
@@ -110,9 +80,7 @@ class MovieController extends Controller {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $name = isset($_POST['directorname']) ?   $_POST['directorname']  : NULL;
             if ( $_POST['title'] && $_POST['genre'] && $_POST['rating'] && $_POST['directorname'] && $_POST['moviedescription'] ) {
-
                 $directorID = $this->directors->insert($_POST['directorname']);
-
                 $genreID = $this->genres->insert($_POST['genre']);
                 if($_FILES["fileToUpload"]["name"]) {
                     $fullPath = dir(getcwd())->path;
@@ -140,13 +108,11 @@ class MovieController extends Controller {
                         echo "Sorry, your file is too large.";
                         $uploadOk = 0;
                     }
-
                     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
                     && $imageFileType != "gif" ) {
                     echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
                     $uploadOk = 0;
                     }
-
                     if ($uploadOk == 0) {
                         echo "Sorry, your file was not uploaded.";
                     // if everything is ok, try to upload file

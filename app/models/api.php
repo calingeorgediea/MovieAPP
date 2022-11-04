@@ -45,8 +45,15 @@ class API_movie extends API {
         return $response;
     }
 
-    function images($tt) {
-        $url = "https://imdb8.p.rapidapi.com/title/get-base?tconst=".$tt;
+    // function images($tt) {
+    //     $url = "https://imdb8.p.rapidapi.com/title/get-base?tconst=".$tt;
+    //     $response = parent::new_request($url);
+    //     $response = json_decode($response, true);
+    //     return $response;
+    // }
+
+    function crew($tt) {
+        $url = "https://imdb8.p.rapidapi.com/title/get-full-credits?tconst=".$tt;
         $response = parent::new_request($url);
         $response = json_decode($response, true);
         return $response;
@@ -58,16 +65,18 @@ class API_movie extends API {
     }
 
     function response(){
+        $crew = $this->crew($this->tt);
         $overview = $this->overview($this->tt);
-        $images = $this->images($this->tt);
         $response = array(
-            "image" => $images['image']['url'],
-            "title" => $overview["title"]["title"],
-            "rating" => $overview['ratings']['rating'],
-            "relase_date" => $overview["title"]["year"],
-            "plot" => $overview["plotSummary"]["text"],
-            "genre" => $overview["genres"],
-            "image_url" => $images['image']['url'],
+            "title" => $overview["title"]["title"] ?? null,
+            "rating" => $overview['ratings']['rating'] ?? null,
+            "API_movie_image" => $overview['title']['image']['url'] ?? null,
+            "plot" => $overview["plotSummary"]["text"] ?? null,
+            "relase_date" => $overview["title"]["year"] ?? null,
+            "genre" => $overview["genres"][0] ?? null,
+            "director" => $crew['crew']['director'][0]['name'] ?? null,
+            // "full_overview" => $overview ?? null,
+            // "full_cast" => $crew ?? null
         );
         $response = json_encode($response);
         $response = json_decode($response);

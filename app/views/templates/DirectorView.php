@@ -2,7 +2,9 @@
 <head>
 <?php include('navbar.php'); ?>
 <link rel="stylesheet" href="../content/css/rating.css">
-<?php define('PUBLIC_PATH', 'http://localhost/mvc/public/'); ?>
+<link rel="stylesheet" href="<?=PUBLIC_PATH?>/css/director.view.css">
+<link rel="stylesheet" href="<?=PUBLIC_PATH?>/css/global.css">
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head><script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -16,7 +18,6 @@
         <div class="container">
         <div class="row">
         <div class="col-sm">
-        <img src="../uploads/" class="movie-poster" alt="">
         </div>
         <div class="col-sm">
             <div id="movie-title">
@@ -27,33 +28,34 @@
         </div>
   </div>
 </div>
-    </div>
-</div>
-</div>
 <?php
 $numOfCols = 3;
 $rowCount = 3;
 $bootstrapColWidth = 12 / $numOfCols;
+
 foreach ($data->AllMovies as $row){
   if($rowCount % $numOfCols == 0) { ?> <div class="row"> <?php }
     $rowCount++; ?>
         <div class="col-md-<?php echo $bootstrapColWidth; ?>">
-
             <div class="thumbnail">
             <a href="<?php echo PUBLIC_PATH ?>movie/movieview?id=<?php echo $row->MovieID; ?>" >
-            <?php if($row->Image) { ?>
-                <img src="../uploads/<?php echo $row->Image; ?>" width="300">
+            <?php if(file_exists($uploads_dir.$row->Image)){ ?>
+                <img src="<?php PUBLIC_PATH ?>uploads/<?php echo $row->Image; ?>" width="100%">
+                <?php } elseif($row->API_movie_image) { ?>
+                <img src="<?php echo $row->API_movie_image; ?>" width="100%">
                 <?php } else { ?>
-                <img src="<?php echo $row->API_movie_image; ?>" width="300">
+                <img src="<?php echo $missing_image; ?>" width="100%">
                 <?php } ?>
                 </a>
                 <h3> <?php echo $row->MovieTitle; ?></h3>
                 <p> <?php echo $row->MovieDescription; ?></p>
             </div>
-
         </div>
 <?php
     if($rowCount % $numOfCols == 0) { ?> </div> <?php } } ?>
+</div>
+</div>
+</div>
 </body>
 
 </html>

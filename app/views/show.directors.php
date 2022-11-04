@@ -19,7 +19,7 @@
     ?>
     <tr>
       <td><?php print_r($value->DirectorName)?></td>
-      <td><button class="btn btn-primary" onclick="window.location.href='directors?id=<?php echo $value->DirectorID ?>'"> Show Director Page </button></td>
+      <td><button class="btn btn-primary" onclick="window.location.href='director?id=<?php echo $value->DirectorID ?>'"> Show Director Page </button></td>
     </tr>
     <?php
     }
@@ -33,7 +33,7 @@ function deleteItem(id) {
     $('#movie-'+id).remove();
     $.ajax({
         type: "POST",
-        url: "http://localhost/mvc/public/movies/delete",
+        url: "http://localhost/mvc/public/movie/delete",
         dataType: 'text',
         data: id.toString(),
         success: function (data) {

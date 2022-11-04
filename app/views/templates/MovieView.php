@@ -1,8 +1,5 @@
 <html>
 <head>
-<td><button onclick='imdbUpdate("<?php echo $data->MovieTitle; ?>")' type="submit" id="delete" class="btn btn-danger">Update</button></td>
-
-<?php define('PUBLIC_PATH', 'http://localhost/mvc/public/'); ?>
 <?php include('navbar.php'); ?>
 <link rel="stylesheet" href="<?=PUBLIC_PATH?>/css/movie.view.css">
 <script type="module" src="<?=PUBLIC_PATH?>/js/star_rating.js"></script>
@@ -35,7 +32,7 @@
                 <h1> <?php echo $data->MovieTitle ?> </h1>
             </div>
             <div id="director-name">
-                <a href="<?php echo PUBLIC_PATH ?>director/find?id=<?php echo $data->DirectorID; ?>">
+                <a href="<?php echo PUBLIC_PATH ?>director?id=<?php echo $data->DirectorID; ?>">
                 <h2> <?php echo $data->DirectorName ?> </h2>
                 </a>
             </div>
@@ -47,17 +44,20 @@
                 <li rating="1" class="star"></li>
             </ul>
             <div id="movie-description">
+            <?php if( $data->api_fetched == true ) { ?>
             <strong> IMDB rating </strong>
                 <p> <?php echo $data->API_movie_rating ?> </p>
                 <strong> Relase Year </strong>
                 <p> <?php echo $data->relase_date ?> </p>
+            <?php } else { ?>
+            <p>
+           <button onclick='imdbUpdate("<?php echo $data->MovieTitle; ?>")' type="submit" id="delete" class="btn btn-danger">Synchronise with IMDb</button>
+           <?php } ?>
+            </p>
                 <strong> Description </strong>
                 <p> <?php echo $data->MovieDescription ?> </p>
-
-
             </div>
              </div>
-
              <div class="col-8">
 
         </div>
@@ -83,7 +83,7 @@ function imdbUpdate(title){
     $.ajax({
         type: "PATCH",
         // Pass data to PHP using URL and then retrieve using $_get[param]
-        url: "http://localhost/mvc/public/movies/update_on_api?title=" + title,
+        url: "http://localhost/mvc/public/movie/update_on_api?title=" + title,
         dataType: 'text',
         data: id,
         success: function (data) {
