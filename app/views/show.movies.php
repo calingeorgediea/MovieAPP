@@ -8,10 +8,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">MovieID
-      </th>
-      <th scope="col">MovieName</th>
-      <th scope="col">Movie Rating</th>
+    <th scope="col">Title</th>
+      <th scope="col">Your rating</th>
       <th scope="col">Movie Description</th>
       <th scope="col">Actions</th>
     </tr>
@@ -21,7 +19,6 @@
     foreach ($data as $value) {
     ?>
     <tr id="movie-<?php echo $value->MovieID; ?>">
-      <td><?php print_r($value->MovieID)?></td>
       <td><?php print_r($value->moviedetails->MovieTitle)?></td>
       <td><?php print_r($value->moviedetails->MovieRating)?></td>
       <td><?php print_r($value->moviedetails->MovieDescription)?></td>

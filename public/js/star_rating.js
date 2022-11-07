@@ -21,7 +21,7 @@ function changeRating(newRating) {
     $.ajax({
         type: "PATCH",
         // Pass data to PHP using URL and then retrieve using $_get[param]
-        url: "http://localhost/mvc/public/movies/update_rating?movieid=" + id,
+        url: "http://localhost/mvc/public/movie/update_rating?movieid=" + id,
         dataType: 'text',
         data: JSON.stringify(newRating.toString(),id),
         success: function (data) {

@@ -39,8 +39,8 @@ foreach ($data->AllMovies as $row){
         <div class="col-md-<?php echo $bootstrapColWidth; ?>">
             <div class="thumbnail">
             <a href="<?php echo PUBLIC_PATH ?>movie/movieview?id=<?php echo $row->MovieID; ?>" >
-            <?php if(file_exists($uploads_dir.$row->Image)){ ?>
-                <img src="<?php PUBLIC_PATH ?>uploads/<?php echo $row->Image; ?>" width="100%">
+            <?php if($row->Image && file_exists($uploads_dir.$row->Image)){ ?>
+                <img src="<?php echo PUBLIC_PATH ?>uploads/<?php echo $row->Image; ?>" width="100%">
                 <?php } elseif($row->API_movie_image) { ?>
                 <img src="<?php echo $row->API_movie_image; ?>" width="100%">
                 <?php } else { ?>

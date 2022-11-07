@@ -1,13 +1,6 @@
 <?php
 
 use Carbon\Carbon;
-
-function jsonify_reponse( $response ){
-    $response=str_replace('},
-    ]',"}]",$response);
-    return json_decode($response);
-}
-
 class DirectorController extends Controller {
     public function __construct(){
         $this->directors = $this->model('Directors');
