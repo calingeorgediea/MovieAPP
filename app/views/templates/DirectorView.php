@@ -13,8 +13,8 @@
 <body>
 
 <div class="main">
-    <!-- <?php var_dump($data) ?> -->
-    <div class="section-1" style="background-color:<?php echo $data->color; ?>">
+<?php if($data) { ?>
+    <div class="section-1">
         <div class="container">
         <div class="row">
         <div class="col-sm">
@@ -39,13 +39,8 @@ foreach ($data->AllMovies as $row){
         <div class="col-md-<?php echo $bootstrapColWidth; ?>">
             <div class="thumbnail">
             <a href="<?php echo PUBLIC_PATH ?>movie/movieview?id=<?php echo $row->MovieID; ?>" >
-<<<<<<< HEAD
-            <?php if(file_exists($row->Image)){ ?>
-                <img src="<?php PUBLIC_PATH ?>uploads/<?php echo $row->Image; ?>" width="100%">
-=======
             <?php if($row->Image && file_exists($uploads_dir.$row->Image)){ ?>
                 <img src="<?php echo PUBLIC_PATH ?>uploads/<?php echo $row->Image; ?>" width="100%">
->>>>>>> develop
                 <?php } elseif($row->API_movie_image) { ?>
                 <img src="<?php echo $row->API_movie_image; ?>" width="100%">
                 <?php } else { ?>
@@ -57,10 +52,12 @@ foreach ($data->AllMovies as $row){
             </div>
         </div>
 <?php
-    if($rowCount % $numOfCols == 0) { ?> </div> <?php } } ?>
+       if($rowCount % $numOfCols == 0) { ?> </div> <?php } } ?>
 </div>
 </div>
 </div>
+<?php } else { ?>
+ <h1> You don't have any movies set for this director </h1>
+<?php } ?>
 </body>
-
 </html>

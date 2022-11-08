@@ -39,7 +39,8 @@ class Directors extends Eloquent {
 
     public function get($directorID) {
         if(!isset($directorID)) {
-            return $this->all();
+            return $this
+            ->all();
         } else {
         $result = Directors::where('DirectorID', '=', $directorID)->first();
         return $result;
@@ -54,22 +55,23 @@ class Directors extends Eloquent {
             // Here I need movie details about all movies recorded by a director
             // I join Directors with Movies where I get ID of all movies and I get details by joining MovieDetails
             // To get just an object I use setAttribute()
-        $result = Directors::where('DirectorID', '=', $directorID)
-                ->first()
-                ->join('movies', 'movies.DirectorID', '=', 'directors.DirectorID')
-                ->join('moviedetails', 'moviedetails.MovieID', '=', 'movies.MovieID')
-                ->where('movies.directorID', '=', $directorID)
-                ->get()->first()->setAttribute('AllMovies', Directors::where('DirectorID', '=', $directorID)
+        try {
+            $result = Directors::where('DirectorID', '=', $directorID)
                     ->first()
                     ->join('movies', 'movies.DirectorID', '=', 'directors.DirectorID')
                     ->join('moviedetails', 'moviedetails.MovieID', '=', 'movies.MovieID')
-                    ->where('movies.directorID', '=', $directorID)->get()->all());
+                    ->where('movies.directorID', '=', $directorID)
+                    ->get()->first()->setAttribute('AllMovies', Directors::where('DirectorID', '=', $directorID)
+                        ->first()
+                        ->join('movies', 'movies.DirectorID', '=', 'directors.DirectorID')
+                        ->join('moviedetails', 'moviedetails.MovieID', '=', 'movies.MovieID')
+                        ->where('movies.directorID', '=', $directorID)->get()->all());
+        } catch(Throwable $e) {
+            return false;
+        }
         return $result;
         }
     }
-
-
-
 }
 
 ?>

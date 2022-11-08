@@ -76,8 +76,11 @@ class DirectorController extends Controller {
         if(isset($_GET['id'])) {
             $directorID = $_GET['id'];
             $directorData = jsonify_reponse($this->directors->getAll($directorID));
-            $directorData;
-            return $this->view('/templates/DirectorView', $data = $directorData);
+            if($directorData) {
+                return $this->view('/templates/DirectorView', $data = $directorData);
+            } else {
+                return $this->view('/templates/DirectorView', $data = null);
+            }
         } else {
             $movieData = jsonify_reponse($this->directors->get(null));
             return $this->view('show.directors', $data = $movieData);
