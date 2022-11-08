@@ -3,7 +3,6 @@ use Carbon\Carbon;
 
 class MovieController extends Controller
 {
-
     protected $user;
 
     public function __construct()
@@ -13,7 +12,6 @@ class MovieController extends Controller
         $this->genres = $this->model('genres');
         $this->directors = $this->model('Directors');
         $this->directordetails = $this->model('DirectorDetail');
-        $this->user = $this->model('User');
         $this->API = $this->model('api');
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }

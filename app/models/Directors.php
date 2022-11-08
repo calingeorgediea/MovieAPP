@@ -45,8 +45,14 @@ class Directors extends Eloquent
     {
         if (!isset($directorID)) {
             return $this
-                ->all(
-                );
+            ->join(
+                'movies',
+                'directors.DirectorID',
+                '=',
+                'movies.DirectorID'
+            )
+            ->groupBy('directors.DirectorID')
+            ->get();
         } else {
             $result = Directors::where('DirectorID', '=', $directorID)->first();
             return $result;

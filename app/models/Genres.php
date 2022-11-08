@@ -70,8 +70,7 @@ class genres extends Eloquent
                 '=',
                 'movies.MovieID'
             )
-            ->get(
-            );
+            ->get();
         return $movie;
     }
 
