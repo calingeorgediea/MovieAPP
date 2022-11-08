@@ -24,11 +24,13 @@ class Movie extends Eloquent {
     }
 
     public function get($movieID) {
+
         $result = $this->join('directors', 'directors.DirectorID', '=', 'movies.DirectorID')
                           ->join('moviedetails', 'moviedetails.MovieID', '=', 'movies.MovieID')
                           ->join('genres', 'genres.GenreID', '=', 'movies.GenreID')
                           ->where('movies.MovieID', '=', $movieID)
                           ->get();
+
 
         return $result;
     }

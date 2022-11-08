@@ -1,10 +1,13 @@
 <?php
 use Carbon\Carbon;
-class MovieController extends Controller {
+
+class MovieController extends Controller
+{
 
     protected $user;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->Movie = $this->model('Movie');
         $this->moviedetails = $this->model('moviedetail');
         $this->genres = $this->model('genres');
@@ -15,29 +18,44 @@ class MovieController extends Controller {
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
 
-    public function filter() {
+    public function filter()
+    {
         $filters = get_query_strings();
         var_dump($filters);
 
     }
 
-    public function index(){
-        if(isset($_GET['id'])) {
+    public function index()
+    {
+        if (isset($_GET['id'])) {
             $movieID = $_GET['id'];
-            $movieData = jsonify_reponse($this->Movie->get($movieID))[0];
-            return $this->view('/templates/MovieView', $data = $movieData);
+            try {
+                if (sizeof($this->Movie->get($movieID)) > 0) {
+                    $movieData = jsonify_reponse($this->Movie->get($movieID))[0];
+                } else {
+                    throw new Exception('Movie not found');
+                }
+            } catch (Exception $e) {
+                $movieData = null;
+            }
+            if ($movieData) {
+                return $this->view('/templates/MovieView', $data = $movieData);
+            } else {
+                return $this->view('/templates/error');
+            }
         } else {
-        $list = jsonify_reponse($this->Movie->getMovies());
-        return $this->view('show.movies', $data=$list);
+            $list = jsonify_reponse($this->Movie->getMovies());
+            return $this->view('show.movies', $data = $list);
         }
     }
 
-    function update_on_api() {
-        $title =  $_GET["title"];
+    function update_on_api()
+    {
+        $title = $_GET["title"];
         // PATCH is used to update an existing entity with new information.
         if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $movie_details = new API_movie($title);
-            $movie_details=$movie_details->response();
+            $movie_details = $movie_details->response();
 
             $this->moviedetails::where('MovieID', '=', $this->requestBody)->update(
                 [
@@ -49,17 +67,21 @@ class MovieController extends Controller {
                     'api_fetched' => 1,
                     // "api_overview_fullresponse" => $movie_details->full_overview,
                     // "api_cast_fullresponse" => $movie_details->full_cast,
+
                 ]
             );
             $directorID = $this->directors->insert($movie_details->director);
             $directorID;
-            $this->Movie::where('MovieID', '=', $this->requestBody)->update([
-                'DirectorID' => $directorID
-            ]);
+            $this->Movie::where('MovieID', '=', $this->requestBody)->update(
+                [
+                    'DirectorID' => $directorID
+                ]
+            );
         }
     }
-    function update_rating() {
-        $movieID =  $_GET["movieid"];
+    function update_rating()
+    {
+        $movieID = $_GET["movieid"];
         $newRating = $this->requestBody;
         // PATCH is used to update an existing entity with new information.
         if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
@@ -67,20 +89,22 @@ class MovieController extends Controller {
         }
     }
 
-    public function delete() {
-            $this->Movie::destroy($this->requestBody);
-            $this->moviedetails::destroy($this->requestBody);
-            return "200";
-            // response in http
+    public function delete()
+    {
+        $this->Movie::destroy($this->requestBody);
+        $this->moviedetails::destroy($this->requestBody);
+        return "200";
+        // response in http
     }
 
-    public function add() {
+    public function add()
+    {
         /** POST */
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-            $title = $_POST['title'] ?  $_POST['title']  : 'unknown_title';
+            $title = $_POST['title'] ? $_POST['title'] : 'unknown_title';
             $moviedescription = $_POST['moviedescription'] ? $_POST['moviedescription'] : "";
-            $directorname = $_POST['directorname'] ?  $_POST['directorname']  : 'unknown_director';
+            $directorname = $_POST['directorname'] ? $_POST['directorname'] : 'unknown_director';
             $genre = $_POST['genre'] ? $_POST['genre'] : "unknown_genre";
             $rating = $_POST['rating'] ? $_POST['rating'] : "unknown_rating";
 
@@ -88,20 +112,20 @@ class MovieController extends Controller {
             $directorID = $this->directors->insert($directorname);
             $genreID = $this->genres->insert($genre);
 
-            if($_FILES["fileToUpload"]["name"]) {
+            if ($_FILES["fileToUpload"]["name"]) {
                 $fullPath = dir(getcwd())->path;
-                $target_dir = $fullPath."\uploads\\";
+                $target_dir = $fullPath . "\uploads\\";
                 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
                 $x = $_FILES["fileToUpload"]["name"];
                 $uploadOk = 1;
-                $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+                $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
                 $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
-                if($check !== false) {
-                echo "File is an image - " . $check["mime"] . ".";
-                $uploadOk = 1;
+                if ($check !== false) {
+                    echo "File is an image - " . $check["mime"] . ".";
+                    $uploadOk = 1;
                 } else {
-                echo "File is not an image.";
-                $uploadOk = 0;
+                    echo "File is not an image.";
+                    $uploadOk = 0;
                 }
                 // Check if file already exists
                 if (file_exists($target_file)) {
@@ -114,20 +138,20 @@ class MovieController extends Controller {
                     echo "Sorry, your file is too large.";
                     $uploadOk = 0;
                 }
-                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                && $imageFileType != "gif" ) {
-                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                $uploadOk = 0;
+                if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                    && $imageFileType != "gif") {
+                    echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+                    $uploadOk = 0;
                 }
                 if ($uploadOk == 0) {
                     echo "Sorry, your file was not uploaded.";
-                // if everything is ok, try to upload file
+                    // if everything is ok, try to upload file
                 } else {
                     $x = $_FILES['image']['error'];
                     if (copy($_FILES['fileToUpload']['tmp_name'], $target_file)) {
-                    echo "The file ". htmlspecialchars( basename( $_FILES["fileToUpload"]["name"])). " has been uploaded.";
+                        echo "The file " . htmlspecialchars(basename($_FILES["fileToUpload"]["name"])) . " has been uploaded.";
                     } else {
-                    echo "Sorry, there was an error uploading your file.";
+                        echo "Sorry, there was an error uploading your file.";
                     }
                 }
 

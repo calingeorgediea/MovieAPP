@@ -66,8 +66,11 @@ class Directors extends Eloquent {
                         ->join('movies', 'movies.DirectorID', '=', 'directors.DirectorID')
                         ->join('moviedetails', 'moviedetails.MovieID', '=', 'movies.MovieID')
                         ->where('movies.directorID', '=', $directorID)->get()->all());
-        } catch(Throwable $e) {
-            return false;
+        if(!$result) {
+            throw new Exception('Movie not found');
+        }
+        } catch(Exception $e) {
+            return null;
         }
         return $result;
         }
