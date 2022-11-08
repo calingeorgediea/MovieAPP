@@ -1,7 +1,9 @@
-<?php 
+<?php
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-class moviedetail extends Eloquent {
+
+class moviedetail extends Eloquent
+{
 
     public $movieID;
     public $movieTitle;
@@ -9,16 +11,19 @@ class moviedetail extends Eloquent {
     public $imageURL;
     public $movieDescription;
     public $timestamps = [];
-    protected $fillable = [ 'MovieTitle', 'MovieRating', 'MovieDescription', 'Image'];
+    protected $fillable = ['MovieTitle', 'MovieRating', 'MovieDescription', 'Image'];
 
-    public function insert($MovieTitle,$MovieRating,$MovieDescription, $ImageURL) {
-        $new = moviedetail::create([
-            'MovieTitle' => $MovieTitle,
-            'MovieRating' => $MovieRating,
-            'MovieDescription'=> $MovieDescription,
-            'Image' => $ImageURL
-        ]);
-        return($new->id);
+    public function insert($MovieTitle, $MovieRating, $MovieDescription, $ImageURL)
+    {
+        $new = moviedetail::create(
+            [
+                'MovieTitle' => $MovieTitle,
+                'MovieRating' => $MovieRating,
+                'MovieDescription' => $MovieDescription,
+                'Image' => $ImageURL
+            ]
+        );
+        return ($new->id);
     }
 
 }

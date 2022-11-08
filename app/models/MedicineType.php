@@ -2,12 +2,13 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class MedicineType extends Eloquent {
+class MedicineType extends Eloquent
+{
 
    // Determines which database table to use
    protected $table = 'medicine_types';
 
-   public function users() 
+   public function users()
    {
       return $this->hasMany('User');
    }

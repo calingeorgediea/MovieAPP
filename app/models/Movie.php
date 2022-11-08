@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-class Movie extends Eloquent {
+
+class Movie extends Eloquent
+{
 
     protected $primaryKey = 'MovieID';
     public $movieID;
@@ -11,36 +13,68 @@ class Movie extends Eloquent {
     protected $fillable = ['MovieID', 'GenreID', 'DirectorID'];
     protected $table = 'movies';
 
-    public function insert($detailsID,$genreID,$directorID) {
-        $new = movie::create([
-            'MovieID' => $detailsID,
-            'GenreID' => $genreID,
-            'DirectorID' => $directorID,
-        ]);
+    public function insert($detailsID, $genreID, $directorID)
+    {
+        $new = movie::create(
+            [
+                'MovieID' => $detailsID,
+                'GenreID' => $genreID,
+                'DirectorID' => $directorID,
+            ]
+        );
     }
 
-    public function moviedetails() {
+    public function moviedetails()
+    {
         return $this->hasOne(moviedetail::class, 'MovieID', 'MovieID');
     }
 
-    public function get($movieID) {
+    public function get($movieID)
+    {
 
         $result = $this->join('directors', 'directors.DirectorID', '=', 'movies.DirectorID')
-                          ->join('moviedetails', 'moviedetails.MovieID', '=', 'movies.MovieID')
-                          ->join('genres', 'genres.GenreID', '=', 'movies.GenreID')
-                          ->where('movies.MovieID', '=', $movieID)
-                          ->get();
+            ->join(
+                'moviedetails',
+                'moviedetails.MovieID',
+                '=',
+                'movies.MovieID'
+            )
+            ->join(
+                'genres',
+                'genres.GenreID',
+                '=',
+                'movies.GenreID'
+            )
+            ->where(
+                'movies.MovieID',
+                '=',
+                $movieID
+            )
+            ->get(
+            );
 
 
         return $result;
     }
     // $this->hasOne('Model', 'foreign_key', 'local_key');
 
-    public function getMovies() {
+    public function getMovies()
+    {
         $movie = $this->with(['moviedetails'])
-        ->join('directors','directors.DirectorID', '=', 'movies.DirectorID')
-        ->join('genres', 'genres.GenreID', '=', 'movies.GenreID')
-        ->get();
+            ->join(
+                'directors',
+                'directors.DirectorID',
+                '=',
+                'movies.DirectorID'
+            )
+            ->join(
+                'genres',
+                'genres.GenreID',
+                '=',
+                'movies.GenreID'
+            )
+            ->get(
+            );
         return $movie;
     }
 

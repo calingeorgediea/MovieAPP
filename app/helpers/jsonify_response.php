@@ -1,5 +1,4 @@
 <?php
-
 function jsonify_reponse( $response ){
     $response=str_replace('},
     ]',"}]",$response);
