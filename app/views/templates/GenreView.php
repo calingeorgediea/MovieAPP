@@ -14,15 +14,14 @@
 
 <div class="main">
     <!-- <?php var_dump($data) ?> -->
-    <div class="section-1" style="background-color:<?php echo $data->color; ?>">
+    <div class="section-1">
         <div class="container">
         <div class="row">
         <div class="col-sm">
         </div>
         <div class="col-sm">
             <div id="movie-title">
-            <?php include('modals/director.php'); ?>
-                <h1> <?php echo $data->DirectorName ?> </h1>
+
             </div>
         </div>
         </div>
@@ -33,19 +32,14 @@ $numOfCols = 3;
 $rowCount = 3;
 $bootstrapColWidth = 12 / $numOfCols;
 
-foreach ($data->AllMovies as $row){
+foreach ($data as $row){
   if($rowCount % $numOfCols == 0) { ?> <div class="row"> <?php }
     $rowCount++; ?>
         <div class="col-md-<?php echo $bootstrapColWidth; ?>">
             <div class="thumbnail">
-            <a href="<?php echo PUBLIC_PATH ?>movie/movieview?id=<?php echo $row->MovieID; ?>" >
-<<<<<<< HEAD
-            <?php if(file_exists($row->Image)){ ?>
-                <img src="<?php PUBLIC_PATH ?>uploads/<?php echo $row->Image; ?>" width="100%">
-=======
+            <a href="<?php echo PUBLIC_PATH ?>movie?id=<?php echo $row->MovieID; ?>" >
             <?php if($row->Image && file_exists($uploads_dir.$row->Image)){ ?>
                 <img src="<?php echo PUBLIC_PATH ?>uploads/<?php echo $row->Image; ?>" width="100%">
->>>>>>> develop
                 <?php } elseif($row->API_movie_image) { ?>
                 <img src="<?php echo $row->API_movie_image; ?>" width="100%">
                 <?php } else { ?>

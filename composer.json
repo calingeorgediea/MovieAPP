@@ -1,0 +1,16 @@
+{
+    "config" : {
+        "platform-check": false
+    },
+    "require": {
+        "illuminate/database": "^8.83"
+    },
+    "autoload": {
+        "classmap" : [
+            "app/models"
+        ],
+        "files": [
+            "app/helpers/helper.php"
+        ]
+    }
+}

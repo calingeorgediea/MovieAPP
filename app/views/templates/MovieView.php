@@ -23,9 +23,11 @@
         clearstatcache();
         if($data->Image) { ?>
         <img src="../uploads/<?php echo $data->Image; ?>" class="movie-poster">
-        <?php } else { ?>
+        <?php } elseif ($data->API_movie_image) { ?>
         <img src="<?php echo $data->API_movie_image; ?>" class="movie-poster">
-        <?php } ?>
+        <?php } else { ?>
+            <img src="../uploads/missing.jpg" class="movie-poster">
+            <?php } ?>
         </div>
         <div class="col-sm">
             <div id="movie-title">
@@ -45,7 +47,9 @@
             </ul>
             <div id="movie-description">
             <?php if( $data->api_fetched == true ) { ?>
-            <strong> IMDB rating </strong>
+                <strong> Genre </strong>
+                <p> <?php echo $data->GenreName ?> </p>
+                <strong> IMDB rating </strong>
                 <p> <?php echo $data->API_movie_rating ?> </p>
                 <strong> Relase Year </strong>
                 <p> <?php echo $data->relase_date ?> </p>
