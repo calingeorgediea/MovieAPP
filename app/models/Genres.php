@@ -25,8 +25,21 @@ class genres extends Eloquent {
     }
 
     public function get() {
-        $director = $this->with('Movie')->get();
+        $director = $this
+        ->select('genres.GenreName','genres.GenreID')
+        ->join('movies','movies.GenreID', '=', 'genres.GenreID')
+        ->groupBy('GenreName')
+        ->get();
         return $director;
+    }
+
+    public function sortbygenre($GenreName) {
+        $movie = $this
+        ->join('movies','movies.GenreID', '=', 'genres.GenreID')
+        ->where('genres.GenreName', '=', $GenreName)
+        ->join('moviedetails','moviedetails.MovieID', '=', 'movies.MovieID')
+        ->get();
+        return $movie;
     }
 
 }

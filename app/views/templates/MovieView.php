@@ -47,7 +47,9 @@
             </ul>
             <div id="movie-description">
             <?php if( $data->api_fetched == true ) { ?>
-            <strong> IMDB rating </strong>
+                <strong> Genre </strong>
+                <p> <?php echo $data->GenreName ?> </p>
+                <strong> IMDB rating </strong>
                 <p> <?php echo $data->API_movie_rating ?> </p>
                 <strong> Relase Year </strong>
                 <p> <?php echo $data->relase_date ?> </p>

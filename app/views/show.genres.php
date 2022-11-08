@@ -8,11 +8,8 @@
 <table class="table">
   <thead>
     <tr>
-      <th scope="col">Title</th>
-      <th scope="col">Director</th>
-      <th scope="col">Genre</th>
-      <th scope="col">Your rating</th>
-      <th scope="col">Movie Description</th>
+      <th scope="col">Genres
+      </th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -20,14 +17,9 @@
   <?php
     foreach ($data as $value) {
     ?>
-      <tr id="movie-<?php echo $value->MovieID; ?>">
-      <td><?php print_r($value->moviedetails->MovieTitle)?></td>
-      <td><?php print_r($value->DirectorName)?></td>
+    <tr>
       <td><?php print_r($value->GenreName)?></td>
-      <td><?php print_r($value->moviedetails->MovieRating)?></td>
-      <td><?php print_r($value->moviedetails->MovieDescription)?></td>
-      <td><a class="btn btn-primary" href="<?php echo PUBLIC_PATH ?>movie/?id=<?php echo $value->MovieID ?>"> Show </a></td>
-      <td><button onclick="deleteItem(<?php echo $value->MovieID; ?>)" type="submit" value="<?php echo $value->MovieID; ?>" id="delete" class="btn btn-danger">Delete</button></td>
+      <td><button class="btn btn-primary" onclick="window.location.href='genre?q=<?php echo $value->GenreName ?>'"> Show Genre Page </button></td>
     </tr>
     <?php
     }

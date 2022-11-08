@@ -26,6 +26,7 @@ class Movie extends Eloquent {
     public function get($movieID) {
         $result = $this->join('directors', 'directors.DirectorID', '=', 'movies.DirectorID')
                           ->join('moviedetails', 'moviedetails.MovieID', '=', 'movies.MovieID')
+                          ->join('genres', 'genres.GenreID', '=', 'movies.GenreID')
                           ->where('movies.MovieID', '=', $movieID)
                           ->get();
 
@@ -33,9 +34,11 @@ class Movie extends Eloquent {
     }
     // $this->hasOne('Model', 'foreign_key', 'local_key');
 
-
     public function getMovies() {
-        $movie = $this->with(['moviedetails'])->get();
+        $movie = $this->with(['moviedetails'])
+        ->join('directors','directors.DirectorID', '=', 'movies.DirectorID')
+        ->join('genres', 'genres.GenreID', '=', 'movies.GenreID')
+        ->get();
         return $movie;
     }
 

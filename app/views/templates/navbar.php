@@ -13,7 +13,10 @@
       <li class="nav-item">
         <a class="nav-link" href="<?php echo PUBLIC_PATH ?>movie">My Movies</a>
       </li>
-    <li class="nav-item">
+      <li class="nav-item">
+        <a class="nav-link" href="<?php echo PUBLIC_PATH ?>movie">Genres</a>
+      </li>
+      <li class="nav-item">
         <a class="nav-link" href="<?php echo PUBLIC_PATH ?>director">Directors</a>
       </li>
     </ul>
