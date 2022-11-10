@@ -13,6 +13,16 @@ class moviedetail extends Eloquent
     public $timestamps = [];
     protected $fillable = ['MovieTitle', 'MovieRating', 'MovieDescription', 'Image'];
 
+    public function search($input) {
+        $results = $this
+        ->where('MovieTitle', 'LIKE', '%'.$input.'%')
+        ->get();
+
+        $subset = $results->map->only(['MovieTitle', 'MovieID']);
+
+
+        return $subset;
+    }
     public function insert($MovieTitle, $MovieRating, $MovieDescription, $ImageURL)
     {
         $new = moviedetail::create(

@@ -1,10 +1,17 @@
 <?php
 use Carbon\Carbon;
+use Illuminate\Http\Request;
+use App\User;
+
 
 class MovieController extends Controller
-{
-    protected $user;
 
+{
+
+
+    protected $user;
+    public $array;
+    // design patteren dependency injection
     public function __construct()
     {
         $this->Movie = $this->model('Movie');
@@ -16,16 +23,38 @@ class MovieController extends Controller
         $this->requestBody = jsonify_reponse(file_get_contents('php://input'));
     }
 
-    public function filter()
-    {
-        $filters = get_query_strings();
-        var_dump($filters);
-
+    public function searchpage(){
+        return $this->view('searchpage');
     }
+
+    public function hello(){
+        $array = "string";
+
+        return resp($array);
+    }
+
+    public function search($input) {
+        if(strlen($input) == 0 ) {
+            return 0;
+        }
+        $response= $this->moviedetails->search($input);
+        echo $response;
+    }
+
+
+    // public function filter()
+    // {
+    //     $filters = get_query_strings();
+    //     var_dump($filters);
+
+    // }
 
     public function index()
     {
-        if (isset($_GET['id'])) {
+        if (!isset($_GET['id'])) {
+            $list = jsonify_reponse($this->Movie->getMovies());
+            return $this->view('show.movies', $data = $list);
+        }
             $movieID = $_GET['id'];
             try {
                 if (sizeof($this->Movie->get($movieID)) > 0) {
@@ -41,10 +70,6 @@ class MovieController extends Controller
             } else {
                 return $this->view('/templates/error');
             }
-        } else {
-            $list = jsonify_reponse($this->Movie->getMovies());
-            return $this->view('show.movies', $data = $list);
-        }
     }
 
     function update_on_api()
