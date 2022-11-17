@@ -89,12 +89,10 @@ class Directors extends Eloquent
                         '=',
                         $directorID
                     )
-                    ->get(
-                    )->first(
-                    )->setAttribute(
+                    ->get()->first()
+                    ->setAttribute(
                         'AllMovies', Directors::where('DirectorID', '=', $directorID)
-                            ->first(
-                            )
+                            ->first()
                             ->join(
                                 'movies',
                                 'movies.DirectorID',

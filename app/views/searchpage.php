@@ -7,13 +7,6 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
-<div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <a href="#about">About</a>
-  <a href="#contact">Contact</a>
-  <input id="searchbar" type="text" placeholder="Search..">
-</div>
-
 <div id="content1">
   <table class="table">
       <thead>
@@ -30,26 +23,30 @@
 if($data) {
 foreach ($data as $value) {
   ?>
-      <tr id="movie-<?php echo $value['MovieID']; ?>">
+  $value;
+      <tr id="movie-<?php echo $value->MovieID; ?>">
         <td>
-          <?php print_r($value['MovieTitle']) ?>
+          <?php if(isset($value->moviedetails->MovieTitle)) print_r($value->moviedetails->MovieTitle) ?>
+          <?php if(isset($value->MovieTitle)) print_r($value->MovieTitle) ?>
         </td>
         <td>
-          <?php print_r($value['DirectorName']) ?>
+          <?php print_r($value->DirectorName) ?>
         </td>
         <td>
-          <?php print_r($value['GenreName']) ?>
+          <?php print_r($value->GenreName) ?>
         </td>
         <td>
-          <?php print_r($value['MovieRating']) ?>
+          <?php if(isset($value->moviedetails->MovieRating)) { print_r($value->moviedetails->MovieRating); } ?>
+          <?php if(isset($value->MovieRating)) print_r($value->MovieRating) ?>
         </td>
         <td>
-          <?php print_r($value['MovieDescription']) ?>
+          <?php if(isset($value->moviedetails->MovieDescription)) print_r($value->moviedetails->MovieDescription) ?>
+          <?php if(isset($value->MovieDescription)) print_r($value->MovieDescription) ?>
         </td>
-        <td><a class="btn btn-primary" href="<?php echo PUBLIC_PATH ?>movie/?id=<?php echo $value['MovieID'] ?>"> Show
+        <td><a class="btn btn-primary" href="<?php echo PUBLIC_PATH ?>movie/?id=<?php echo $value->MovieID ?>"> Show
           </a></td>
-        <td><button onclick="deleteItem(<?php echo $value['MovieID']; ?>)" type="submit"
-            value="<?php echo $value['MovieID']; ?>" id="delete" class="btn btn-danger">Delete</button></td>
+        <td><button onclick="deleteItem(<?php echo $value->MovieID; ?>)" type="submit"
+            value="<?php echo $value->MovieID; ?>" id="delete" class="btn btn-danger">Delete</button></td>
       </tr>
       <?php
   }
@@ -97,27 +94,28 @@ myInput.addEventListener(
       if(myInput.value) {
         const url = new URL(window.location.href);
         url.searchParams.set('q', myInput.value);
-
         window.history.replaceState(null, null, url); // or pushState
         search(myInput.value);
       } else {
-        const url = new URL(window.location.href);
-        var currentUrl = url.HREF;
-        console.log(currentUrl);
-        let params = new URLSearchParams(currentUrl);
-        params.delete('q'); //Query string is now: 'bar=2'
+        console.log("empty");
+        history.replaceState({}, "Title", "searchpage");
+        search(false);
       }
     }
 
 
     function search(value) {
     //alert (javascriptVariable);
+    if(!value){
+      value = false;
+    }
     $.ajax({
       type: "GET",
       url: "http://localhost/mvc/public/movie/search/"+value,
       dataType: 'json',
       data: value,
       success: function(response) {
+        console.log("1");
         render(response);
       },
     });

@@ -24,7 +24,14 @@ class MovieController extends Controller
     }
 
     public function searchpage(){
-        return $this->view('searchpage');
+        $filters = get_query_strings();
+        if (isset($_GET['q'])) {
+            // $list = jsonify_reponse($this->Movie->getMovies());
+            $list= jsonify_reponse($this->moviedetails->search($filters['q']));
+            return $this->view('searchpage', $data = $list);
+        }
+        $list = jsonify_reponse($this->Movie->getMovies());
+        return $this->view('searchpage', $data = $list);
     }
 
     public function hello(){
@@ -34,19 +41,21 @@ class MovieController extends Controller
     }
 
     public function search($input) {
-        if(strlen($input) == 0 ) {
-            return 0;
-        }
+        $var = isset($input);
+        if($input === "false") {
+            $b = 1;
+            $list = $this->Movie->getMovies();
+            echo $list;
+        } else {
         $response= $this->moviedetails->search($input);
         echo $response;
+        }
     }
-
 
     // public function filter()
     // {
     //     $filters = get_query_strings();
     //     var_dump($filters);
-
     // }
 
     public function index()
