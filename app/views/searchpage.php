@@ -81,7 +81,8 @@ function render(response){
         "<td>" + Genre + "</td>" +
         "<td>" + Rating + "</td>" +
         "<td>" + MovieDescription + "</td>" +
-        "<td><a class='btn btn-danger' href=movie/?id="+entry.MovieID+">View</a></td>" +
+        "<td><a class='btn btn-primary' href=movie/?id="+entry.MovieID+">Show</a></td>" +
+        "<td><button class='btn btn-danger' onclick=deleteItem("+ entry.MovieID +")>Delete</button></td>" +
     "</tr>"
     );
   }
