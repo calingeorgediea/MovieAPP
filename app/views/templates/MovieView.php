@@ -22,13 +22,13 @@
                 <div class="row">
                     <div class="col-sm">
                         <?php
-        clearstatcache();
-        $filename = "../uploads/" . $data->Image;
-        $filename = PUBLIC_PATH . "uploads/photo.jpg";
-        $thruth = file_exists($filename);
-        $thruth;
-        clearstatcache();
-        if ($data->Image) { ?>
+                    clearstatcache();
+                    $filename = "../uploads/" . $data->Image;
+                    $filename = PUBLIC_PATH . "uploads/photo.jpg";
+                    $thruth = file_exists($filename);
+                    $thruth;
+                    clearstatcache();
+                    if ($data->Image) { ?>
                         <img src="../uploads/<?php echo $data->Image; ?>" class="movie-poster">
                         <?php } elseif ($data->API_movie_image) { ?>
                         <img src="<?php echo $data->API_movie_image; ?>" class="movie-poster">

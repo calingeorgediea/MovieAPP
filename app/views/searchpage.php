@@ -23,7 +23,6 @@
 if($data) {
 foreach ($data as $value) {
   ?>
-  $value;
       <tr id="movie-<?php echo $value->MovieID; ?>">
         <td>
           <?php if(isset($value->moviedetails->MovieTitle)) print_r($value->moviedetails->MovieTitle) ?>
@@ -61,13 +60,14 @@ function render(response){
   console.log(response);
   $('#contentTable').empty();
   for(const entry of response){
+    console.log(entry);
     $('#contentTable').append(
     "<tr id=movie-" + entry.MovieID + ">" +
-        "<td>" + entry.MovieTitle + "</td>" +
-        "<td>" + entry.DirectorName + "</td>" +
-        "<td>" + entry.GenreName + "</td>" +
-        "<td>" + entry.MovieRating + "</td>" +
-        "<td>" + entry.MovieDescription + "</td>" +
+        "<td>" + entry.moviedetails.MovieTitle ? entry.moviedetails.MovieTitle : entry.MovieTitle + "</td>" +
+        "<td>" + entry.moviedetails.DirectorName ? entry.moviedetails.DirectorName : entry.DirectorName + "</td>" +
+        "<td>" + entry.moviedetails.GenreName ? entry.moviedetails.GenreName : entry.GenreName+ "</td>" +
+        "<td>" + entry.moviedetails.MovieRating ? entry.moviedetails.MovieRating : entry.MovieRating + "</td>" +
+        "<td>" + entry.moviedetails.MovieDescription ? entry.moviedetails.MovieDescription : entry.MovieDescription + "</td>" +
         "<td><button class='btn btn-danger' onclick=deleteItem("+entry.MovieID+")>Delete</button></td>" +
         "<td><a class='btn btn-danger' href=movie/?id="+entry.MovieID+">View</a></td>" +
     "</tr>"
@@ -115,7 +115,6 @@ myInput.addEventListener(
       dataType: 'json',
       data: value,
       success: function(response) {
-        console.log("1");
         render(response);
       },
     });

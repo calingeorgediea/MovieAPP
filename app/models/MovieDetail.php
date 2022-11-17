@@ -14,9 +14,9 @@ class moviedetail extends Eloquent
     protected $fillable = ['MovieTitle', 'MovieRating', 'MovieDescription', 'Image'];
 
     public function search($input) {
-        if ($input === null) {
+        // if ($input === null) {
 
-        }
+        // }
         $results = $this
         ->where('MovieTitle', 'LIKE', '%'.$input.'%')
         ->join(
