@@ -60,15 +60,27 @@ function render(response){
   console.log(response);
   $('#contentTable').empty();
   for(const entry of response){
-    console.log(entry);
+    if(entry.hasOwnProperty('moviedetails')) {
+     var MovieTitle = entry.moviedetails.MovieTitle;
+      var Director = entry.DirectorName;
+      var Genre = entry.GenreName;
+      var Rating = entry.moviedetails.MovieRating;
+      var MovieDescription = entry.moviedetails.MovieDescription;
+    } else {
+      var MovieTitle = entry.MovieTitle;
+      var Director = entry.DirectorName;
+      var Genre = entry.GenreName;
+      var Rating = entry.MovieRating;
+      var MovieDescription = entry.MovieDescription;
+    }
+
     $('#contentTable').append(
     "<tr id=movie-" + entry.MovieID + ">" +
-        "<td>" + entry.moviedetails.MovieTitle ? entry.moviedetails.MovieTitle : entry.MovieTitle + "</td>" +
-        "<td>" + entry.moviedetails.DirectorName ? entry.moviedetails.DirectorName : entry.DirectorName + "</td>" +
-        "<td>" + entry.moviedetails.GenreName ? entry.moviedetails.GenreName : entry.GenreName+ "</td>" +
-        "<td>" + entry.moviedetails.MovieRating ? entry.moviedetails.MovieRating : entry.MovieRating + "</td>" +
-        "<td>" + entry.moviedetails.MovieDescription ? entry.moviedetails.MovieDescription : entry.MovieDescription + "</td>" +
-        "<td><button class='btn btn-danger' onclick=deleteItem("+entry.MovieID+")>Delete</button></td>" +
+        "<td>" + MovieTitle + "</td>" +
+        "<td>" + Director + "</td>" +
+        "<td>" + Genre + "</td>" +
+        "<td>" + Rating + "</td>" +
+        "<td>" + MovieDescription + "</td>" +
         "<td><a class='btn btn-danger' href=movie/?id="+entry.MovieID+">View</a></td>" +
     "</tr>"
     );

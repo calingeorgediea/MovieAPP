@@ -43,6 +43,7 @@ class MovieController extends Controller
     public function search($input) {
         $var = isset($input);
         if($input === "false") {
+            $b = 1;
             $list = $this->Movie->getMovies();
             echo $list;
         } else {

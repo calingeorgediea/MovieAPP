@@ -54,6 +54,26 @@ class moviedetail extends Eloquent
         return ($new->id);
     }
 
+    public function get()
+    {
+        $movie = $this
+            ->join(
+                'directors',
+                'directors.DirectorID',
+                '=',
+                'movies.DirectorID'
+            )
+            ->join(
+                'genres',
+                'genres.GenreID',
+                '=',
+                'movies.GenreID'
+            )
+            ->get(
+            );
+        return $movie;
+    }
+
 }
 
 ?>
