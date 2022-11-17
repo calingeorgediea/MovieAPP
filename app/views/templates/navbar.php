@@ -22,4 +22,5 @@
       </li>
     </ul>
   </div>
+  <input id="searchbar" type="text" placeholder="Search Movie">
 </nav>

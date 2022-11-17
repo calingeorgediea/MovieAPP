@@ -14,9 +14,42 @@
 </div>
 
 <div id="content1">
+  <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Title</th>
+          <th scope="col">Director</th>
+          <th scope="col">Genre</th>
+          <th scope="col">Rating</th>
+          <th scope="col">Movie Description</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody id="contentTable">
+
+    </tbody>
+    </table>
 </div>
 
 <script>
+function render(response){
+  console.log(response);
+  $('#contentTable').empty();
+  for(const entry of response){
+    $('#contentTable').append(
+    "<tr id=movie-" + entry.MovieID + ">" +
+        "<td>" + entry.MovieTitle + "</td>" +
+        "<td>" + entry.DirectorName + "</td>" +
+        "<td>" + entry.GenreName + "</td>" +
+        "<td>" + entry.MovieRating + "</td>" +
+        "<td>" + entry.MovieDescription + "</td>" +
+        "<td><button class='btn btn-danger' onclick=deleteItem("+entry.MovieID+")>Delete</button></td>" +
+        "<td><a class='btn btn-danger' href=movie/?id="+entry.MovieID+">View</a></td>" +
+    "</tr>"
+    );
+  }
+
+}
 
 function debounce( callback, delay ) {
     let timeout;
@@ -48,8 +81,21 @@ myInput.addEventListener(
       dataType: 'json',
       data: value,
       success: function(response) {
-       console.log(response);
+        render(response);
       },
+    });
+  }
+
+  function deleteItem(id) {
+    //alert (javascriptVariable);
+    $('#movie-' + id).remove();
+    $.ajax({
+      type: "POST",
+      url: "http://localhost/mvc/public/movie/delete",
+      dataType: 'text',
+      data: id.toString(),
+      success: function (data) {
+      }
     });
   }
 
