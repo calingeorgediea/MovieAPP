@@ -53,88 +53,14 @@ foreach ($data as $value) {
 </div>
 <script>
 
-$( document ).ready(function() {
-  const url = new URL(window.location.href);
-  // Check if there is any search Query and if so, pass it to the searchtab.
-    const queryString = window.location.search;
-    const parameters = new URLSearchParams(queryString);
-    const value = parameters.get('q');
-    if ( value ) {
-      $("#searchbar").val(value);
-    }
-});
-
-function render(response){
-  console.log(response);
-  $('#contentTable').empty();
-  // For now, models return data in different ways.
-  // Some details can be found in moviedetails attribute and others as a whole.
-  for(const entry of response){
-
-    var MovieTitle = entry.MovieTitle;
-    var Director = entry.DirectorName;
-    var Genre = entry.GenreName;
-    var Rating = entry.MovieRating;
-    var MovieDescription = entry.MovieDescription;
-
-    $('#contentTable').append(
-    "<tr id=movie-" + entry.MovieID + ">" +
-        "<td>" + MovieTitle + "</td>" +
-        "<td>" + Director + "</td>" +
-        "<td>" + Genre + "</td>" +
-        "<td>" + Rating + "</td>" +
-        "<td>" + MovieDescription + "</td>" +
-        "<td><a class='btn btn-primary' href=movie/?id="+entry.MovieID+">Show</a></td>" +
-        "<td><button class='btn btn-danger' onclick=deleteItem("+ entry.MovieID +")>Delete</button></td>" +
-    "</tr>"
-    );
-  }
-}
-
-function debounce( callback, delay ) {
-    let timeout;
-    return function() {
-        clearTimeout( timeout );
-        timeout = setTimeout( callback, delay );
-    }
-}
-
-const myInput = document.getElementById("searchbar");
-
-myInput.addEventListener(
-    "keyup",
-    debounce( searchCache, 500 )
-);
-
-    function searchCache() {
-      if(myInput.value) {
-        const url = new URL(window.location.href);
-        url.searchParams.set('q', myInput.value);
-        window.history.replaceState(null, null, url); // or pushState
-        search(myInput.value);
-      } else {
-        console.log("empty");
-        history.replaceState({}, "Title", "searchpage");
-        search(false);
-      }
-    }
 
 
-    function search(value) {
-    //alert (javascriptVariable);
-    if(!value){
-      value = false;
-    }
-    $.ajax({
-      type: "GET",
-      url: "http://localhost/mvc/public/movie/search/"+value,
-      dataType: 'json',
-      data: value,
-      success: function(response) {
-        render(response);
-      },
-    });
-  }
+
+
+
+
+
+
 
   function deleteItem(id) {
     //alert (javascriptVariable);

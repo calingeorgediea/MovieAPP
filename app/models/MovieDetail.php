@@ -14,9 +14,6 @@ class moviedetail extends Eloquent
     protected $fillable = ['MovieTitle', 'MovieRating', 'MovieDescription', 'Image'];
 
     public function search($input) {
-        // if ($input === null) {
-
-        // }
         $results = $this
         ->where('MovieTitle', 'LIKE', '%'.$input.'%')
         ->join(
@@ -53,7 +50,6 @@ class moviedetail extends Eloquent
         );
         return ($new->id);
     }
-
     public function get()
     {
         $movie = $this
@@ -73,7 +69,6 @@ class moviedetail extends Eloquent
             );
         return $movie;
     }
-
 }
 
 ?>
