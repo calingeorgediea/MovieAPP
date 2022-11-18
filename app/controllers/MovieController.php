@@ -52,14 +52,16 @@ class MovieController extends Controller
         }
     }
 
-    // public function filter()
-    // {
-    //     $filters = get_query_strings();
-    //     var_dump($filters);
-    // }
-
     public function index()
     {
+        // Check if search keyword is present in the URL and query the results.
+        $filters = get_query_strings();
+        if (isset($_GET['q'])) {
+            // $list = jsonify_reponse($this->Movie->getMovies());
+            $list= jsonify_reponse($this->moviedetails->search($filters['q']));
+            return $this->view('show.movies', $data = $list);
+        }
+        // If an ID is present, render the movie page
         if (!isset($_GET['id'])) {
             $list = jsonify_reponse($this->Movie->getMovies());
             return $this->view('show.movies', $data = $list);
@@ -80,11 +82,10 @@ class MovieController extends Controller
                 return $this->view('/templates/error');
             }
     }
-
     function update_on_api()
     {
         $title = $_GET["title"];
-        // PATCH is used to update an existing entity with new information.
+        // If API request is made, fetch IMDb information and fill the fields with received data.
         if ($_SERVER["REQUEST_METHOD"] == "PATCH") {
             $movie_details = new API_movie($title);
             $movie_details = $movie_details->response();
@@ -120,7 +121,6 @@ class MovieController extends Controller
             $this->moviedetails::where('MovieID', '=', $movieID)->update(['MovieRating' => $newRating]);
         }
     }
-
     public function delete()
     {
         $this->Movie::destroy($this->requestBody);
@@ -139,8 +139,6 @@ class MovieController extends Controller
             $directorname = $_POST['directorname'] ? $_POST['directorname'] : 'unknown_director';
             $genre = $_POST['genre'] ? $_POST['genre'] : "unknown_genre";
             $rating = $_POST['rating'] ? $_POST['rating'] : "unknown_rating";
-
-
             $directorID = $this->directors->insert($directorname);
             $genreID = $this->genres->insert($genre);
 

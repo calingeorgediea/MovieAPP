@@ -22,5 +22,5 @@
       </li>
     </ul>
   </div>
-  <input id="searchbar" type="text" placeholder="Search Movie">
+  <input  pattern="[A-Za-z]{3}" id="searchbar" type="text" placeholder="Search Movie">
 </nav>
