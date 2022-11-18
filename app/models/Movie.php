@@ -60,7 +60,12 @@ class Movie extends Eloquent
 
     public function getMovies()
     {
-        $movie = $this->with(['moviedetails'])
+        $movie = $this->join(
+                'moviedetails',
+                'moviedetails.MovieID',
+                '=',
+                'movies.MovieID'
+            )
             ->join(
                 'directors',
                 'directors.DirectorID',

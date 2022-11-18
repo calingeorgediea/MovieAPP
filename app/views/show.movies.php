@@ -25,7 +25,7 @@
   ?>
       <tr id="movie-<?php echo $value->MovieID; ?>">
         <td>
-          <?php print_r($value->moviedetails->MovieTitle) ?>
+          <?php print_r($value->MovieTitle) ?>
         </td>
         <td>
           <?php print_r($value->DirectorName) ?>
@@ -34,10 +34,10 @@
           <?php print_r($value->GenreName) ?>
         </td>
         <td>
-          <?php print_r($value->moviedetails->MovieRating) ?>
+          <?php print_r($value->MovieRating) ?>
         </td>
         <td>
-          <?php print_r($value->moviedetails->MovieDescription) ?>
+          <?php print_r($value->MovieDescription) ?>
         </td>
         <td><a class="btn btn-primary" href="<?php echo PUBLIC_PATH ?>movie/?id=<?php echo $value->MovieID ?>"> Show
           </a></td>

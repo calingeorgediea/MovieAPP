@@ -25,8 +25,7 @@ foreach ($data as $value) {
   ?>
       <tr id="movie-<?php echo $value->MovieID; ?>">
         <td>
-          <?php if(isset($value->moviedetails->MovieTitle)) print_r($value->moviedetails->MovieTitle) ?>
-          <?php if(isset($value->MovieTitle)) print_r($value->MovieTitle) ?>
+          <?php print_r($value->MovieTitle) ?>
         </td>
         <td>
           <?php print_r($value->DirectorName) ?>
@@ -35,12 +34,10 @@ foreach ($data as $value) {
           <?php print_r($value->GenreName) ?>
         </td>
         <td>
-          <?php if(isset($value->moviedetails->MovieRating)) { print_r($value->moviedetails->MovieRating); } ?>
-          <?php if(isset($value->MovieRating)) print_r($value->MovieRating) ?>
+          <?php print_r($value->MovieRating) ?>
         </td>
         <td>
-          <?php if(isset($value->moviedetails->MovieDescription)) print_r($value->moviedetails->MovieDescription) ?>
-          <?php if(isset($value->MovieDescription)) print_r($value->MovieDescription) ?>
+          <?php print_r($value->MovieDescription) ?>
         </td>
         <td><a class="btn btn-primary" href="<?php echo PUBLIC_PATH ?>movie/?id=<?php echo $value->MovieID ?>"> Show
           </a></td>
@@ -54,25 +51,31 @@ foreach ($data as $value) {
     </tbody>
     </table>
 </div>
-
 <script>
+
+$( document ).ready(function() {
+  const url = new URL(window.location.href);
+  // Check if there is any search Query and if so, pass it to the searchtab.
+    const queryString = window.location.search;
+    const parameters = new URLSearchParams(queryString);
+    const value = parameters.get('q');
+    if ( value ) {
+      $("#searchbar").val(value);
+    }
+});
+
 function render(response){
   console.log(response);
   $('#contentTable').empty();
+  // For now, models return data in different ways.
+  // Some details can be found in moviedetails attribute and others as a whole.
   for(const entry of response){
-    if(entry.hasOwnProperty('moviedetails')) {
-     var MovieTitle = entry.moviedetails.MovieTitle;
-      var Director = entry.DirectorName;
-      var Genre = entry.GenreName;
-      var Rating = entry.moviedetails.MovieRating;
-      var MovieDescription = entry.moviedetails.MovieDescription;
-    } else {
-      var MovieTitle = entry.MovieTitle;
-      var Director = entry.DirectorName;
-      var Genre = entry.GenreName;
-      var Rating = entry.MovieRating;
-      var MovieDescription = entry.MovieDescription;
-    }
+
+    var MovieTitle = entry.MovieTitle;
+    var Director = entry.DirectorName;
+    var Genre = entry.GenreName;
+    var Rating = entry.MovieRating;
+    var MovieDescription = entry.MovieDescription;
 
     $('#contentTable').append(
     "<tr id=movie-" + entry.MovieID + ">" +
@@ -100,7 +103,7 @@ const myInput = document.getElementById("searchbar");
 
 myInput.addEventListener(
     "keyup",
-    debounce( searchCache, 1000 )
+    debounce( searchCache, 500 )
 );
 
     function searchCache() {
