@@ -176,7 +176,6 @@ function deleteItem(id) {
 }
 
   function render(response){
-  console.log(response);
   $('#contentTable').empty();
   // For now, models return data in different ways.
   // Some details can be found in moviedetails attribute and others as a whole.
