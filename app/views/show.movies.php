@@ -84,7 +84,6 @@ function search(value) {
       dataType: 'json',
       data: value,
       success: function(response) {
-        console.log("DB Query done, caching the results");
         if (value) {
           cacheexample[value.toLowerCase()] = response;
         }
@@ -100,40 +99,24 @@ function isObjectEmpty(obj) {
 
 function searchCache() {
   foundInCache = 0;
-
     if(myInput.value) {
       var keyword = myInput.value;
-      console.log("Searching...");
       const url = new URL(window.location.href);
       url.searchParams.set('q', myInput.value);
       window.history.replaceState(null, null, url); // or pushState
       if(isObjectEmpty(cacheexample)) {
-        console.log("Cache is Empty..");
         foundInCache = 0;
-        console.log("Querying Database and caching results");
         var DBterm = myInput.value;
         var DBQuery = search(myInput.value);
-        console.log("DBTerm " + DBterm);
         cacheexample[DBterm] = DBQuery;
       } else {
-        console.log("Cache is not empty, starting to search");
-        console.log("--Current Cache--");
-        console.log(cacheexample);
-        console.log("----");
       for (const [key, value] of Object.entries(cacheexample)) {
         if( keyword.startsWith(key.toLowerCase()) && keyword.toLowerCase() == key.toLowerCase() ) {
-          console.log("Found cached search");
-          console.log(cacheexample);
-          console.log("Cached showed up");
-            // Check if keyword is exactly the same as caching
-            // watcht for case sensitive
-            console.log(keyword  + " starts with " + key + ",returning results");
             foundInCache = 1;
             try {
               render(value);
               return 1;
             } catch {
-              console.log("Could not render InnerSearch");
               return 0;
             }
             return value;
@@ -144,34 +127,29 @@ function searchCache() {
             var innerSearch = [];
             value.forEach((item, index)=>{
                 // find titles matching the keyword
-                console.log("Printing item movietitle " + item.MovieTitle);
-                console.log("Printing keyword " + keyword);
                 let movieTitle = item.MovieTitle;
                 movieTitle = movieTitle.toLowerCase();
                 if (movieTitle.includes(keyword.toLowerCase())) {
                     // if so, build a new JSON object
                     innerSearch.push(item);
-                    console.log("Append " + item + " to innerSearch");
                 }
             })
         foundInCache = 1;
         try {
           render(innerSearch);
         } catch {
-          console.log("Could not render InnerSearch");
+          console.log("Could not render results.");
         }
         return innerSearch;
         }
       }
     if ( foundInCache == 0 ) {
-        console.log("Not found in Cache, looking in DB");
         // Query DB and insert in Cache.
         search(myInput.value);
         return 0;
     }
     }
     } else {
-      console.log("empty");
       history.replaceState({}, "Title", "movie");
       search(false);
     }
