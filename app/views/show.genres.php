@@ -11,7 +11,8 @@
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">Directors</th>
+        <th scope="col">Genres
+        </th>
         <th scope="col">Actions</th>
       </tr>
     </thead>
@@ -21,11 +22,10 @@
   ?>
       <tr>
         <td>
-          <?php print_r($value->DirectorName) ?>
+          <?php print_r($value->GenreName) ?>
         </td>
-        <td><button class="btn btn-primary"
-            onclick="window.location.href='director?id=<?php echo $value->DirectorID ?>'"> Show Director Page </button>
-        </td>
+        <td><button class="btn btn-primary" onclick="window.location.href='genre?q=<?php echo $value->GenreName ?>'">
+            Show Genre Page </button></td>
       </tr>
       <?php
   }
